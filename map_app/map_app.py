@@ -49,7 +49,6 @@ base_figure = px.scatter_mapbox(
 base_figure.update_layout(mapbox_style="carto-positron")
 base_figure.update_layout(mapbox_center={'lat': 51.42, 'lon': -0.33})
 base_figure.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-base_figure.show()
 
 
 map_app = dash.Dash()
@@ -93,7 +92,6 @@ def update_graph(athlete_id, checkbox_options):
     lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
     fig.update_layout(mapbox_center={'lat': lat_center, 'lon': lon_center})
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-    fig.show()
 
     return fig
 
