@@ -82,11 +82,7 @@ def update_graph(athlete_id, checkbox_options):
             lat="latitude", lon="longitude",
             hover_name="event_name",
             hover_data=["run_count"],
-            # color="run_count",
             color="marker_color",
-            # color_continuous_scale=px.colors.sequential.Greens_r,
-            # color_discrete_sequence=["green"],
-            #color_discrete_sequence=['#26903B'],  # shade of green
             zoom=10, height=750,
             opacity=1
         )
