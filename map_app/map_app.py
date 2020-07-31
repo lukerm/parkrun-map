@@ -29,6 +29,8 @@ def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: 
         athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' not in name)]
 
     athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: '#D81919' if count == 0 else '#26903B')
+    athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
+
     return athlete_data
 
 
@@ -84,7 +86,7 @@ def update_graph(athlete_id, checkbox_options):
             hover_data=["run_count"],
             color="marker_color",
             zoom=10, height=750,
-            opacity=1
+            opacity=athlete_data['marker_opacity'].values
         )
 
     fig.update_layout(mapbox_style="carto-positron")
