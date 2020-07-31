@@ -16,12 +16,19 @@ FIRST_ATHLETE_ID = 1283894
 course_data = pq.read_table(source='lukerm-ds-open/parkrun/data/parquet/course_locations', filesystem=s3fs.S3FileSystem()).to_pandas()
 
 
-def get_athlete_data(athlete_id: str) -> pd.DataFrame:
+def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: bool = False) -> pd.DataFrame:
     # TODO: Remove leading 'A' if present
     athlete_data = read_athlete_id(athlete_id=int(athlete_id))
     athlete_data = athlete_data.groupby(['country', 'event_name'])[['gender']].count().reset_index().rename(columns={'gender': 'run_count'})
-    athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='left')
-    athlete_data = athlete_data[~pd.isnull(athlete_data['run_count'])]
+    athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='right')
+    athlete_data.loc[pd.isnull(athlete_data['run_count']), 'run_count'] = 0  # Fill missing run counts with 0
+
+    if not show_missing:
+        athlete_data = athlete_data[athlete_data['run_count'] > 0]
+    elif not show_juniors:
+        athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' not in name)]
+
+    athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: '#D81919' if count == 0 else '#26903B')
     return athlete_data
 
 
@@ -33,7 +40,7 @@ base_figure = px.scatter_mapbox(
         # color="run_count",
         # color_continuous_scale=px.colors.sequential.Greens_r,
         # color_discrete_sequence=["green"],
-        color_discrete_sequence=['magenta'],
+        color_discrete_sequence=['#26903B'],  # shade of green
         zoom=1, height=750,
         opacity=0
     )
@@ -46,30 +53,40 @@ base_figure.show()
 map_app = dash.Dash()
 map_app.layout = html.Div([
     dcc.Input(id='athlete_id', type='text', placeholder='Athlete ID e.g. 12345', debounce=True),
+    dcc.Checklist(
+        id='checkboxes',
+        options=[
+            {'label': 'Show missing', 'value': 'show_missing'},
+            {'label': 'Show Junior parkruns', 'value': 'show_juniors'},
+        ],
+        value=[],
+        labelStyle={'display': 'inline-block'}
+    ),
     dcc.Graph(id='map', figure=base_figure)
 ])
 
 
 @map_app.callback(
     Output('map', 'figure'),
-    [Input('athlete_id', 'value')]
+    [Input('athlete_id', 'value'), Input('checkboxes', 'value')]
 )
-def update_graph(athlete_id):
+def update_graph(athlete_id, checkbox_options):
     if athlete_id is None:
         athlete_data = get_athlete_data(athlete_id=FIRST_ATHLETE_ID)
         fig = px.scatter_mapbox(athlete_data, lat="latitude", lon="longitude", zoom=1, height=750, opacity=0, hover_name=None, hover_data=None)
         fig.update_layout(hovermode=False)
     else:
-        athlete_data = get_athlete_data(athlete_id=athlete_id)
+        athlete_data = get_athlete_data(athlete_id=athlete_id, show_missing='show_missing' in checkbox_options, show_juniors='show_juniors' in checkbox_options)
         fig = px.scatter_mapbox(
             athlete_data,
             lat="latitude", lon="longitude",
             hover_name="event_name",
             hover_data=["run_count"],
             # color="run_count",
+            color="marker_color",
             # color_continuous_scale=px.colors.sequential.Greens_r,
             # color_discrete_sequence=["green"],
-            color_discrete_sequence=['magenta'],
+            #color_discrete_sequence=['#26903B'],  # shade of green
             zoom=10, height=750,
             opacity=1
         )
