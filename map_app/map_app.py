@@ -11,6 +11,7 @@ from dash.dependencies import Input, Output
 from parkrun_scrape.write_athlete_table import read_athlete_id
 
 FIRST_ATHLETE_ID = 1283894
+FIG_HEIGHT = 700
 
 
 course_data = pq.read_table(source='lukerm-ds-open/parkrun/data/parquet/course_locations', filesystem=s3fs.S3FileSystem()).to_pandas()
@@ -43,7 +44,7 @@ base_figure = px.scatter_mapbox(
         # color_continuous_scale=px.colors.sequential.Greens_r,
         # color_discrete_sequence=["green"],
         color_discrete_sequence=['#26903B'],  # shade of green
-        zoom=1, height=750,
+        zoom=1, height=FIG_HEIGHT,
         opacity=0
     )
 base_figure.update_layout(mapbox_style="carto-positron")
@@ -74,7 +75,7 @@ map_app.layout = html.Div([
 def update_graph(athlete_id, checkbox_options):
     if athlete_id is None:
         athlete_data = get_athlete_data(athlete_id=FIRST_ATHLETE_ID)
-        fig = px.scatter_mapbox(athlete_data, lat="latitude", lon="longitude", zoom=1, height=750, opacity=0, hover_name=None, hover_data=None)
+        fig = px.scatter_mapbox(athlete_data, lat="latitude", lon="longitude", zoom=1, height=FIG_HEIGHT, opacity=0, hover_name=None, hover_data=None)
         fig.update_layout(hovermode=False)
     else:
         athlete_data = get_athlete_data(athlete_id=athlete_id, show_missing='show_missing' in checkbox_options, show_juniors='show_juniors' in checkbox_options)
@@ -84,7 +85,7 @@ def update_graph(athlete_id, checkbox_options):
             hover_name="event_name",
             hover_data=["run_count"],
             color="marker_color",
-            zoom=10, height=750,
+            zoom=10, height=FIG_HEIGHT,
             opacity=athlete_data['marker_opacity'].values
         )
 
