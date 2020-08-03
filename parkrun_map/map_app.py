@@ -23,11 +23,18 @@ course_data = pq.read_table(source='lukerm-ds-open/parkrun/data/parquet/course_l
 
 
 def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: bool = False) -> pd.DataFrame:
+    # Get the athlete's entire history
     # TODO: Remove leading 'A' if present
     athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=ATHLETE_TABLE_LOCAL, s3_mode=False)
-    athlete_data = athlete_data.groupby(['country', 'event_name'])[['gender']].count().reset_index().rename(columns={'gender': 'run_count'})
-    athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='right')
-    athlete_data.loc[pd.isnull(athlete_data['run_count']), 'run_count'] = 0  # Fill missing run counts with 0
+    # Summarize by grouping by event
+    grouped_by_event = athlete_data.groupby(['country', 'event_name'])
+    athlete_data = grouped_by_event[['run_time']].agg(['count', 'min'])
+    athlete_data.columns = athlete_data.columns.get_level_values(1)
+    athlete_data = athlete_data.reset_index().rename(columns={'count': 'run_count', 'min': 'personal_best'})
+    athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='right')  # Join summary back onto course table
+    # Fill missing run counts with 0
+    athlete_data.loc[pd.isnull(athlete_data['run_count']), 'personal_best'] = 'N/A'
+    athlete_data.loc[pd.isnull(athlete_data['run_count']), 'run_count'] = 0
 
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
@@ -89,7 +96,7 @@ def update_graph(athlete_id, checkbox_options):
             athlete_data,
             lat="latitude", lon="longitude",
             hover_name="event_name",
-            hover_data={"run_count": True, "latitude": False, "longitude": False, "marker_color": False},
+            hover_data={"run_count": True, "personal_best": True, "latitude": False, "longitude": False, "marker_color": False},
             color="marker_color",
             zoom=10, height=FIG_HEIGHT,
             opacity=athlete_data['marker_opacity'].values
