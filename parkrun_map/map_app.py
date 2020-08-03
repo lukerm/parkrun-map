@@ -1,3 +1,5 @@
+import os
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -12,6 +14,7 @@ from parkrun_map.utils.s3 import read_data_for_athlete_id
 
 
 ATHLETE_TABLE_S3 = "lukerm-ds-open/parkrun/data/parquet/athletes"
+ATHLETE_TABLE_LOCAL = os.path.join(os.path.expanduser('~'), "parkrun-map", "data")
 FIRST_ATHLETE_ID = 1283894
 FIG_HEIGHT = 700
 
@@ -21,7 +24,7 @@ course_data = pq.read_table(source='lukerm-ds-open/parkrun/data/parquet/course_l
 
 def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: bool = False) -> pd.DataFrame:
     # TODO: Remove leading 'A' if present
-    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=ATHLETE_TABLE_S3, s3_mode=True)
+    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=ATHLETE_TABLE_LOCAL, s3_mode=False)
     athlete_data = athlete_data.groupby(['country', 'event_name'])[['gender']].count().reset_index().rename(columns={'gender': 'run_count'})
     athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='right')
     athlete_data.loc[pd.isnull(athlete_data['run_count']), 'run_count'] = 0  # Fill missing run counts with 0
