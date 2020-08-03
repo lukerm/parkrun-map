@@ -8,8 +8,10 @@ import s3fs
 
 from dash.dependencies import Input, Output
 
-from parkrun_scrape.write_athlete_table import read_athlete_id
+from parkrun_map.utils.s3 import read_data_for_athlete_id
 
+
+ATHLETE_TABLE_S3 = "lukerm-ds-open/parkrun/data/parquet/athletes"
 FIRST_ATHLETE_ID = 1283894
 FIG_HEIGHT = 700
 
@@ -19,7 +21,7 @@ course_data = pq.read_table(source='lukerm-ds-open/parkrun/data/parquet/course_l
 
 def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: bool = False) -> pd.DataFrame:
     # TODO: Remove leading 'A' if present
-    athlete_data = read_athlete_id(athlete_id=int(athlete_id))
+    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=ATHLETE_TABLE_S3, s3_mode=True)
     athlete_data = athlete_data.groupby(['country', 'event_name'])[['gender']].count().reset_index().rename(columns={'gender': 'run_count'})
     athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='right')
     athlete_data.loc[pd.isnull(athlete_data['run_count']), 'run_count'] = 0  # Fill missing run counts with 0
