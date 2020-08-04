@@ -47,6 +47,27 @@ def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: 
     return athlete_data
 
 
+def get_graph(athlete_id, checkbox_options):
+    athlete_data = get_athlete_data(athlete_id=athlete_id, show_missing='show_missing' in checkbox_options, show_juniors='show_juniors' in checkbox_options)
+    fig = px.scatter_mapbox(
+        athlete_data,
+        lat="latitude", lon="longitude",
+        hover_name="event_name",
+        hover_data={"run_count": True, "personal_best": True, "latitude": False, "longitude": False, "marker_color": False},
+        color="marker_color",
+        zoom=10, height=FIG_HEIGHT,
+        opacity=athlete_data['marker_opacity'].values
+    )
+
+    lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
+    fig.update_layout(mapbox_style="carto-positron")
+    fig.update_layout(mapbox_center={'lat': lat_center, 'lon': lon_center})
+    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    fig.update_layout(showlegend=False)
+
+    return fig
+
+
 base_figure = px.scatter_mapbox(
         get_athlete_data(FIRST_ATHLETE_ID),
         lat="latitude", lon="longitude",
@@ -86,29 +107,13 @@ map_app.layout = html.Div([
     [Input('athlete_id', 'value'), Input('checkboxes', 'value')]
 )
 def update_graph(athlete_id, checkbox_options):
-    if athlete_id is None:
-        athlete_data = get_athlete_data(athlete_id=FIRST_ATHLETE_ID)
-        fig = px.scatter_mapbox(athlete_data, lat="latitude", lon="longitude", zoom=1, height=FIG_HEIGHT, opacity=0, hover_name=None, hover_data=None)
-        fig.update_layout(hovermode=False)
-    else:
-        athlete_data = get_athlete_data(athlete_id=athlete_id, show_missing='show_missing' in checkbox_options, show_juniors='show_juniors' in checkbox_options)
-        fig = px.scatter_mapbox(
-            athlete_data,
-            lat="latitude", lon="longitude",
-            hover_name="event_name",
-            hover_data={"run_count": True, "personal_best": True, "latitude": False, "longitude": False, "marker_color": False},
-            color="marker_color",
-            zoom=10, height=FIG_HEIGHT,
-            opacity=athlete_data['marker_opacity'].values
-        )
+    context = dash.callback_context
+    if context.inputs['athlete_id.value'] is None:
+        raise dash.exceptions.PreventUpdate()
 
-    fig.update_layout(mapbox_style="carto-positron")
-    lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
-    fig.update_layout(mapbox_center={'lat': lat_center, 'lon': lon_center})
-    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-    fig.update_layout(showlegend=False)
+    return get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
 
-    return fig
+
 
 
 if __name__ == "__main__":
