@@ -8,7 +8,7 @@ import plotly.express as px
 import pyarrow.parquet as pq
 import s3fs
 
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 
 from parkrun_map.utils.s3 import read_data_for_athlete_id
 
@@ -98,7 +98,7 @@ map_app.layout = html.Div([
         value=[],
         labelStyle={'display': 'inline-block'}
     ),
-    dcc.Graph(id='map', figure=base_figure, config={'displayModeBar': False})
+    html.Div(id='map_wrapper', children=dcc.Graph(id='map', figure=base_figure, config={'displayModeBar': False})),
 ])
 
 
@@ -114,6 +114,20 @@ def update_graph(athlete_id, checkbox_options):
     return get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
 
 
+# Note: this callback is only needed to reload the map after the first load.
+#       Needed because sometimes the map centres on the wrong location FOR THE FIRST LOAD ONLY!
+#       This callback will only be used once during the runtime of the browser session (map_wrapper is overwritten)
+@map_app.callback(
+    Output('map_wrapper', 'children'),
+    [Input('map', 'figure')],
+    [State('athlete_id', 'value'), State('checkboxes', 'value')],
+)
+def reload_map(_map, athlete_id, checkbox_options):
+    if athlete_id is not None:
+        fig = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+        return html.Div(id='map', children=dcc.Graph(figure=fig, config={'displayModeBar': False}))
+    else:
+        raise dash.exceptions.PreventUpdate()
 
 
 if __name__ == "__main__":
