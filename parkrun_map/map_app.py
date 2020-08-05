@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import dash
@@ -9,6 +10,7 @@ import pyarrow.parquet as pq
 import s3fs
 
 from dash.dependencies import Input, Output, State
+from waitress import serve
 
 from parkrun_map.utils.s3 import read_data_for_athlete_id
 
@@ -163,4 +165,11 @@ def reload_map(_map, athlete_id, checkbox_options):
 
 
 if __name__ == "__main__":
-    map_app.run_server(debug=True, use_reloader=False)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--debug', action='store_true', default=False)
+    args = parser.parse_args()
+
+    if args.debug:
+        map_app.run_server(debug=True, use_reloader=False)
+    else:
+        serve(map_app.server)
