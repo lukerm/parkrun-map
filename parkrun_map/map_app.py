@@ -83,6 +83,7 @@ def get_graph(athlete_id, checkbox_options):
         hover_name="event_name",
         hover_data={"run_count": True, "personal_best": True, "latitude": False, "longitude": False, "marker_color": False},
         color="marker_color",
+        color_discrete_map='identity',
         zoom=10, height=FIG_HEIGHT,
         opacity=athlete_data['marker_opacity'].values
     )
