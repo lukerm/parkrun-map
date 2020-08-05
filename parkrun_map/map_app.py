@@ -20,7 +20,10 @@ FIRST_ATHLETE_ID = 1283894
 FIG_HEIGHT = 700
 
 
-def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: bool = False) -> pd.DataFrame:
+def get_athlete_data(athlete_id: str, show_missing: bool = False, show_parkruns: bool = True, show_juniors: bool = False) -> pd.DataFrame:
+    # We must show at least one of usual parkruns and junior parkruns
+    assert any([show_parkruns, show_juniors])
+
     # Get the athlete's entire history
     # TODO: Remove leading 'A' if present
     tables_location = PARQUET_TABLES_S3 if USE_S3 else PARQUET_TABLES_LOCAL
@@ -36,10 +39,17 @@ def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: 
     athlete_data.loc[pd.isnull(athlete_data['run_count']), 'personal_best'] = 'N/A'
     athlete_data.loc[pd.isnull(athlete_data['run_count']), 'run_count'] = 0
 
+    if all([show_parkruns, show_juniors]):
+        pass  # No filtering on usual / junior events
+    elif show_parkruns:
+        # Do not show junior events (only usual parkruns)
+        athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' not in name)]
+    elif show_juniors:
+        # Filter only on junior events
+        athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' in name)]
+
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
-    elif not show_juniors:
-        athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' not in name)]
 
     athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: '#D81919' if count == 0 else '#26903B')
     athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
@@ -53,7 +63,20 @@ def get_course_data(parquet_table_location: str, s3_mode: bool = False) -> pd.Da
 
 
 def get_graph(athlete_id, checkbox_options):
-    athlete_data = get_athlete_data(athlete_id=athlete_id, show_missing='show_missing' in checkbox_options, show_juniors='show_juniors' in checkbox_options)
+
+    # At least one of parkruns and junior parkruns must be selected
+    if 'show_parkruns' not in checkbox_options and 'show_juniors' not in checkbox_options:
+        raise dash.exceptions.PreventUpdate()
+
+    athlete_data = get_athlete_data(
+        athlete_id=athlete_id,
+        show_missing='show_missing' in checkbox_options,
+        show_parkruns='show_parkruns' in checkbox_options,
+        show_juniors='show_juniors' in checkbox_options
+    )
+    if len(athlete_data) == 0:
+        raise dash.exceptions.PreventUpdate()
+
     fig = px.scatter_mapbox(
         athlete_data,
         lat="latitude", lon="longitude",
@@ -99,10 +122,11 @@ map_app.layout = html.Div([
     dcc.Checklist(
         id='checkboxes',
         options=[
-            {'label': 'Show missing', 'value': 'show_missing'},
-            {'label': 'Show Junior parkruns', 'value': 'show_juniors'},
+            {'label': 'Show parkrun events', 'value': 'show_parkruns'},
+            {'label': 'Show junior events', 'value': 'show_juniors'},
+            {'label': 'Show missing events', 'value': 'show_missing'},
         ],
-        value=[],
+        value=['show_parkruns'],
         labelStyle={'display': 'inline-block'}
     ),
     html.Div(id='map_wrapper', children=dcc.Graph(id='map', figure=base_figure, config={'displayModeBar': False})),
