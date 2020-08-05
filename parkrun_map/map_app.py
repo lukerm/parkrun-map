@@ -13,8 +13,8 @@ from dash.dependencies import Input, Output, State
 from parkrun_map.utils.s3 import read_data_for_athlete_id
 
 
-ATHLETE_TABLE_S3 = "lukerm-ds-open/parkrun/data/parquet/athletes"
-ATHLETE_TABLE_LOCAL = os.path.join(os.path.expanduser('~'), "parkrun-map", "data")
+PARQUET_TABLES_S3 = "lukerm-ds-open/parkrun/data/parquet"
+PARQUET_TABLES_LOCAL = os.path.join(os.path.expanduser('~'), "parkrun-map", "data")
 FIRST_ATHLETE_ID = 1283894
 FIG_HEIGHT = 700
 
@@ -25,7 +25,7 @@ course_data = pq.read_table(source='lukerm-ds-open/parkrun/data/parquet/course_l
 def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: bool = False) -> pd.DataFrame:
     # Get the athlete's entire history
     # TODO: Remove leading 'A' if present
-    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=ATHLETE_TABLE_LOCAL, s3_mode=False)
+    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=os.path.join(PARQUET_TABLES_LOCAL, "athletes"), s3_mode=False)
     # Summarize by grouping by event
     grouped_by_event = athlete_data.groupby(['country', 'event_name'])
     athlete_data = grouped_by_event[['run_time']].agg(['count', 'min'])
