@@ -13,25 +13,25 @@ from dash.dependencies import Input, Output, State
 from parkrun_map.utils.s3 import read_data_for_athlete_id
 
 
+USE_S3 = False
 PARQUET_TABLES_S3 = "lukerm-ds-open/parkrun/data/parquet"
 PARQUET_TABLES_LOCAL = os.path.join(os.path.expanduser('~'), "parkrun-map", "data")
 FIRST_ATHLETE_ID = 1283894
 FIG_HEIGHT = 700
 
 
-course_data = pq.read_table(source='lukerm-ds-open/parkrun/data/parquet/course_locations', filesystem=s3fs.S3FileSystem()).to_pandas()
-
-
 def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: bool = False) -> pd.DataFrame:
     # Get the athlete's entire history
     # TODO: Remove leading 'A' if present
-    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=os.path.join(PARQUET_TABLES_LOCAL, "athletes"), s3_mode=False)
+    tables_location = PARQUET_TABLES_S3 if USE_S3 else PARQUET_TABLES_LOCAL
+    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=os.path.join(tables_location, "athletes"), s3_mode=USE_S3)
+    #course_data = get_courses_data(parquet_table_location=os.path.join(tables_location, "course_locations"), s3_mode=USE_S3)
     # Summarize by grouping by event
     grouped_by_event = athlete_data.groupby(['country', 'event_name'])
     athlete_data = grouped_by_event[['run_time']].agg(['count', 'min'])
     athlete_data.columns = athlete_data.columns.get_level_values(1)
     athlete_data = athlete_data.reset_index().rename(columns={'count': 'run_count', 'min': 'personal_best'})
-    athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='right')  # Join summary back onto course table
+    athlete_data = pd.merge(athlete_data, course_data, on=['event_name', 'country'], how='right')  # Join summary back onto course table (global variable)
     # Fill missing run counts with 0
     athlete_data.loc[pd.isnull(athlete_data['run_count']), 'personal_best'] = 'N/A'
     athlete_data.loc[pd.isnull(athlete_data['run_count']), 'run_count'] = 0
@@ -45,6 +45,11 @@ def get_athlete_data(athlete_id: str, show_missing: bool = False, show_juniors: 
     athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
 
     return athlete_data
+
+
+def get_course_data(parquet_table_location: str, s3_mode: bool = False) -> pd.DataFrame:
+    course_data = pq.read_table(source=parquet_table_location, filesystem=s3fs.S3FileSystem() if s3_mode else None).to_pandas()
+    return course_data
 
 
 def get_graph(athlete_id, checkbox_options):
@@ -67,6 +72,8 @@ def get_graph(athlete_id, checkbox_options):
 
     return fig
 
+
+course_data = get_course_data(parquet_table_location=os.path.join(PARQUET_TABLES_S3 if USE_S3 else PARQUET_TABLES_LOCAL, "course_locations"), s3_mode=USE_S3)
 
 base_figure = px.scatter_mapbox(
         get_athlete_data(FIRST_ATHLETE_ID),
