@@ -21,6 +21,10 @@ PARQUET_TABLES_LOCAL = os.path.join(os.path.expanduser('~'), "parkrun-map", "dat
 FIRST_ATHLETE_ID = 123
 FIG_HEIGHT = 700
 
+# colours
+COLOUR_COMPLETE = '#26903B'  # green
+COLOUR_MISSING = '#D81919'  # red
+
 
 def get_athlete_data(athlete_id: str, show_missing: bool = False, show_parkruns: bool = True, show_juniors: bool = False) -> pd.DataFrame:
     # We must show at least one of usual parkruns and junior parkruns
@@ -53,7 +57,7 @@ def get_athlete_data(athlete_id: str, show_missing: bool = False, show_parkruns:
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
 
-    athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: '#D81919' if count == 0 else '#26903B')
+    athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: COLOUR_MISSING if count == 0 else COLOUR_COMPLETE)
     athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
 
     return athlete_data
