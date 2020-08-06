@@ -172,6 +172,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.debug:
-        map_app.run_server(debug=True, use_reloader=False)
+        map_app.run_server(debug=True, use_reloader=True)
     else:
         serve(map_app.server)
