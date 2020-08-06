@@ -18,7 +18,7 @@ from parkrun_map.utils.s3 import read_data_for_athlete_id
 USE_S3 = False
 PARQUET_TABLES_S3 = "lukerm-ds-open/parkrun/data/parquet"
 PARQUET_TABLES_LOCAL = os.path.join(os.path.expanduser('~'), "parkrun-map", "data")
-FIRST_ATHLETE_ID = 1283894
+FIRST_ATHLETE_ID = 123
 FIG_HEIGHT = 700
 
 
