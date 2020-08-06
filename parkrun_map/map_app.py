@@ -23,8 +23,8 @@ FIRST_ATHLETE_ID = 123
 FIG_HEIGHT = 700
 
 # colours
-COLOUR_COMPLETE = '#26903B'  # green
-COLOUR_MISSING = '#D81919'  # red
+COLOUR_COMPLETE = '#5D3A9B'  # purple
+COLOUR_MISSING = '#E66100'  # orange
 
 
 def get_athlete_data(athlete_id: str, show_missing: bool = False, show_parkruns: bool = True, show_juniors: bool = False) -> pd.DataFrame:
