@@ -6,6 +6,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import pyarrow.parquet as pq
 import s3fs
 
@@ -84,24 +85,44 @@ def get_graph(athlete_id, checkbox_options):
         raise dash.exceptions.PreventUpdate()
 
     lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
-    # These lines format the RHS of the data fields when they appear in the hover bubble
-    athlete_data['run_count'] = athlete_data['run_count'].apply(lambda n: f' {int(n)}')
-    athlete_data['personal_best'] = athlete_data['personal_best'].apply(lambda pb: f' {pb}')
-    fig = px.scatter_mapbox(
-        athlete_data.rename(columns={'run_count': 'Run count ', 'personal_best': 'Personal best '}),
-        lat="latitude", lon="longitude",
-        hover_name="event_name",
-        hover_data={"Run count ": True, "Personal best ": True, "latitude": False, "longitude": False, "marker_color": False},
-        color="marker_color",
-        color_discrete_map='identity',
-        zoom=10, height=FIG_HEIGHT,
-        opacity=athlete_data['marker_opacity'].values
-    )
+    athlete_data_complete = athlete_data[athlete_data['run_count'] > 0]
+    athlete_data_missing = athlete_data[athlete_data['run_count'] == 0]
+
+    fig = go.Figure()
+    fig.add_trace(go.Scattermapbox(
+        customdata=athlete_data_complete,
+        lat=athlete_data_complete['latitude'],
+        lon=athlete_data_complete['longitude'],
+        mode='markers',
+        marker=go.scattermapbox.Marker(
+            size=7,
+            color=COLOUR_COMPLETE,
+            opacity=1
+        ),
+        text=athlete_data_complete['event_name'],
+        hovertemplate='<b>%{customdata[1]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
+    ))
+
+    if len(athlete_data_missing) > 0:
+        fig.add_trace(go.Scattermapbox(
+            lat=athlete_data_missing['latitude'],
+            lon=athlete_data_missing['longitude'],
+            mode='markers',
+            marker=go.scattermapbox.Marker(
+                size=5,
+                color=COLOUR_MISSING,
+                opacity=0.5
+            ),
+            text=athlete_data_missing['event_name'],
+            hoverinfo='text',
+        ))
 
     fig.update_layout(mapbox_style="carto-positron")
     fig.update_layout(mapbox_center={'lat': lat_center, 'lon': lon_center})
+    fig.update_layout(mapbox_zoom=10)
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     fig.update_layout(showlegend=False)
+    fig.update_layout(height=FIG_HEIGHT)
 
     return fig
 
@@ -112,10 +133,7 @@ base_figure = px.scatter_mapbox(
         get_athlete_data(FIRST_ATHLETE_ID),
         lat="latitude", lon="longitude",
         hover_data={"run_count": False, "personal_best": False, "latitude": False, "longitude": False, "marker_color": False},
-        # color="run_count",
-        # color_continuous_scale=px.colors.sequential.Greens_r,
-        # color_discrete_sequence=["green"],
-        color_discrete_sequence=['#26903B'],  # shade of green
+        color_discrete_sequence=[COLOUR_COMPLETE],
         zoom=1, height=FIG_HEIGHT,
         opacity=0
     )
