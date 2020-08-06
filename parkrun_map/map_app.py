@@ -133,10 +133,7 @@ base_figure = px.scatter_mapbox(
         get_athlete_data(FIRST_ATHLETE_ID),
         lat="latitude", lon="longitude",
         hover_data={"run_count": False, "personal_best": False, "latitude": False, "longitude": False, "marker_color": False},
-        # color="run_count",
-        # color_continuous_scale=px.colors.sequential.Greens_r,
-        # color_discrete_sequence=["green"],
-        color_discrete_sequence=['#26903B'],  # shade of green
+        color_discrete_sequence=[COLOUR_COMPLETE],
         zoom=1, height=FIG_HEIGHT,
         opacity=0
     )
