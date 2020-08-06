@@ -79,18 +79,21 @@ def get_graph(athlete_id, checkbox_options):
     if len(athlete_data) == 0:
         raise dash.exceptions.PreventUpdate()
 
+    lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
+    # These lines format the RHS of the data fields when they appear in the hover bubble
+    athlete_data['run_count'] = athlete_data['run_count'].apply(lambda n: f' {int(n)}')
+    athlete_data['personal_best'] = athlete_data['personal_best'].apply(lambda pb: f' {pb}')
     fig = px.scatter_mapbox(
-        athlete_data,
+        athlete_data.rename(columns={'run_count': 'Run count ', 'personal_best': 'Personal best '}),
         lat="latitude", lon="longitude",
         hover_name="event_name",
-        hover_data={"run_count": True, "personal_best": True, "latitude": False, "longitude": False, "marker_color": False},
+        hover_data={"Run count ": True, "Personal best ": True, "latitude": False, "longitude": False, "marker_color": False},
         color="marker_color",
         color_discrete_map='identity',
         zoom=10, height=FIG_HEIGHT,
         opacity=athlete_data['marker_opacity'].values
     )
 
-    lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
     fig.update_layout(mapbox_style="carto-positron")
     fig.update_layout(mapbox_center={'lat': lat_center, 'lon': lon_center})
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
@@ -104,8 +107,7 @@ course_data = get_course_data(parquet_table_location=os.path.join(PARQUET_TABLES
 base_figure = px.scatter_mapbox(
         get_athlete_data(FIRST_ATHLETE_ID),
         lat="latitude", lon="longitude",
-        hover_name="event_name",
-        hover_data=["run_count"],
+        hover_data={"run_count": False, "personal_best": False, "latitude": False, "longitude": False, "marker_color": False},
         # color="run_count",
         # color_continuous_scale=px.colors.sequential.Greens_r,
         # color_discrete_sequence=["green"],
