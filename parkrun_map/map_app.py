@@ -123,7 +123,7 @@ base_figure.update_layout(showlegend=False)
 
 map_app = dash.Dash()
 map_app.layout = html.Div([
-    dcc.Input(id='athlete_id', type='text', placeholder='Athlete ID e.g. 12345', debounce=True),
+    dcc.Input(id='athlete_id', type='text', placeholder='Athlete ID e.g. 123', debounce=True),
     dcc.Checklist(
         id='checkboxes',
         options=[
