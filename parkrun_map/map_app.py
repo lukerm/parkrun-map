@@ -58,6 +58,9 @@ def get_athlete_data(athlete_id: str, show_missing: bool = False, show_parkruns:
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
 
+    athlete_data['event_title_pretty'] = athlete_data['event_title'].apply(
+        lambda title: title.replace('parkrun', '').replace('junior', 'Juniors').replace(' ,', ',').strip()
+    )
     athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: COLOUR_MISSING if count == 0 else COLOUR_COMPLETE)
     athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
 
@@ -99,8 +102,8 @@ def get_graph(athlete_id, checkbox_options):
             color=COLOUR_COMPLETE,
             opacity=1
         ),
-        text=athlete_data_complete['event_name'],
-        hovertemplate='<b>%{customdata[1]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
+        text=athlete_data_complete['event_title_pretty'],
+        hovertemplate='<b>%{customdata[7]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
     ))
 
     if len(athlete_data_missing) > 0:
@@ -113,7 +116,7 @@ def get_graph(athlete_id, checkbox_options):
                 color=COLOUR_MISSING,
                 opacity=0.5
             ),
-            text=athlete_data_missing['event_name'],
+            text=athlete_data_missing['event_title_pretty'],
             hoverinfo='text',
         ))
 
