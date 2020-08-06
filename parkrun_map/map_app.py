@@ -98,7 +98,7 @@ def get_graph(athlete_id, checkbox_options):
         lon=athlete_data_complete['longitude'],
         mode='markers',
         marker=go.scattermapbox.Marker(
-            size=7,
+            size=8,
             color=COLOUR_COMPLETE,
             opacity=1
         ),
@@ -112,9 +112,9 @@ def get_graph(athlete_id, checkbox_options):
             lon=athlete_data_missing['longitude'],
             mode='markers',
             marker=go.scattermapbox.Marker(
-                size=5,
+                size=6,
                 color=COLOUR_MISSING,
-                opacity=0.5
+                opacity=0.6
             ),
             text=athlete_data_missing['event_title_pretty'],
             hoverinfo='text',
