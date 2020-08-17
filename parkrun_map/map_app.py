@@ -19,7 +19,7 @@ from parkrun_map.utils.s3 import read_data_for_athlete_id
 USE_S3 = False
 PARQUET_TABLES_S3 = "lukerm-ds-open/parkrun/data/parquet"
 PARQUET_TABLES_LOCAL = os.path.join(os.path.expanduser('~'), "parkrun-map", "data")
-FIRST_ATHLETE_ID = 123
+FIRST_ATHLETE_ID = '123'
 FIG_HEIGHT = 700
 
 # colours
@@ -32,9 +32,9 @@ def get_athlete_data(athlete_id: str, show_missing: bool = False, show_parkruns:
     assert any([show_parkruns, show_juniors])
 
     # Get the athlete's entire history
-    # TODO: Remove leading 'A' if present
     tables_location = PARQUET_TABLES_S3 if USE_S3 else PARQUET_TABLES_LOCAL
-    athlete_data = read_data_for_athlete_id(athlete_id=int(athlete_id), parquet_table_location=os.path.join(tables_location, "athletes"), s3_mode=USE_S3)
+    athlete_id_clean = int(athlete_id.replace('A', ''))
+    athlete_data = read_data_for_athlete_id(athlete_id=athlete_id_clean, parquet_table_location=os.path.join(tables_location, "athletes"), s3_mode=USE_S3)
     #course_data = get_courses_data(parquet_table_location=os.path.join(tables_location, "course_locations"), s3_mode=USE_S3)
     # Summarize by grouping by event
     grouped_by_event = athlete_data.groupby(['country', 'event_name'])
