@@ -17,18 +17,38 @@ FIG_HEIGHT = 700
 COLOUR_COMPLETE = '#5D3A9B'  # purple
 COLOUR_MISSING = '#E66100'  # orange
 
+
 def get_graph(athlete_id, checkbox_options):
 
     # At least one of parkruns and junior parkruns must be selected
     if 'show_parkruns' not in checkbox_options and 'show_juniors' not in checkbox_options:
         raise dash.exceptions.PreventUpdate()
 
-    athlete_data = get_athlete_data(
-        athlete_id=athlete_id,
-        show_missing='show_missing' in checkbox_options,
-        show_parkruns='show_parkruns' in checkbox_options,
-        show_juniors='show_juniors' in checkbox_options
+    athlete_data = get_athlete_and_course_data(athlete_id=athlete_id)
+
+    # Filtering based on checked boxes
+    show_missing = 'show_missing' in checkbox_options
+    show_parkruns = 'show_parkruns' in checkbox_options
+    show_juniors = 'show_juniors' in checkbox_options
+    if all([show_parkruns, show_juniors]):
+        pass  # No filtering on usual / junior events
+    elif show_parkruns:
+        # Do not show junior events (only usual parkruns)
+        athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' not in name)]
+    elif show_juniors:
+        # Filter only on junior events
+        athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' in name)]
+
+    if not show_missing:
+        athlete_data = athlete_data[athlete_data['run_count'] > 0]
+
+    # Extra tweaks for prettiness
+    athlete_data['event_title_pretty'] = athlete_data['event_title'].apply(
+        lambda title: title.replace('parkrun', '').replace('junior', 'Juniors').replace(' ,', ',').strip()
     )
+    athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: COLOUR_MISSING if count == 0 else COLOUR_COMPLETE)
+    athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
+
     if len(athlete_data) == 0:
         raise dash.exceptions.PreventUpdate()
 
