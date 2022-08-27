@@ -1,3 +1,4 @@
+import os
 import re
 from typing import Dict, Union
 
@@ -57,3 +58,8 @@ def get_athlete_data(athlete_id: Union[str, int]) -> pd.DataFrame:
         data.append(tuple([field_data[column] for column in EVENT_SUMMARY_COLUMNS]))
 
     return pd.DataFrame(data, columns=EVENT_SUMMARY_COLUMNS)
+
+
+def get_course_data():
+    course_filepath = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'course_data.csv')
+    return pd.read_csv(course_filepath)
