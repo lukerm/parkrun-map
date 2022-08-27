@@ -1,17 +1,20 @@
 import os
 import re
 from typing import Dict, Union
+import urllib
 
 import pandas as pd
 import requests
 from lxml import html
+
+from . lookup import COUNTRY_LOOKUP
 
 
 USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)"
 PRETTY_TIME_REGEX = re.compile('^00:')
 
 COURSE_FILEPATH = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'course_data.csv')
-EVENT_SUMMARY_COLUMNS = ['event_name', 'run_count', 'personal_best']
+EVENT_SUMMARY_COLUMNS = ['event_name', 'country', 'run_count', 'personal_best']
 
 
 def parse_fields(row: html.Element) -> Dict[str, Union[str, int]]:
@@ -29,6 +32,9 @@ def parse_fields(row: html.Element) -> Dict[str, Union[str, int]]:
             a = field.xpath('./a')[0]
             url = a.get('href')  # e.g. 'https://www.parkrun.org.uk/highburyfields/results'
             data_dict['event_name'] = url.split('/')[-2]
+            top_level_domain = urllib.parse.urlparse(url).netloc
+            domain_extension = top_level_domain.split('parkrun')[1]
+            data_dict['country'] = COUNTRY_LOOKUP[domain_extension]  # e.g. 'UK'
         if i == 1:
             data_dict['run_count'] = int(field.text)  # e.g. 100
         if i == 4:
@@ -78,7 +84,7 @@ def get_athlete_and_course_data(athlete_id: Union[str, int]) -> pd.DataFrame:
         course_data = update_course_data(new_course_event_names=missing_courses)
 
     # Right join to enable showing missing parkruns
-    df_merged = pd.merge(athlete_summary_data, course_data, on='event_name', how='right')
+    df_merged = pd.merge(athlete_summary_data, course_data, on=['event_name', 'country'], how='right')
     df_merged.loc[pd.isnull(df_merged['run_count']), 'personal_best'] = 'N/A'
     df_merged.loc[pd.isnull(df_merged['run_count']), 'run_count'] = 0
     df_merged['run_count'] = df_merged['run_count'].astype(int)

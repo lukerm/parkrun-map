@@ -68,7 +68,7 @@ def get_graph(athlete_id, checkbox_options):
             opacity=1
         ),
         text=athlete_data_complete['event_title_pretty'],
-        hovertemplate='<b>%{customdata[7]}</b><br><br>Run count = %{customdata[1]:.0f}<br>Personal best = %{customdata[2]}<extra></extra>'
+        hovertemplate='<b>%{customdata[7]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
     ))
 
     if len(athlete_data_missing) > 0:
