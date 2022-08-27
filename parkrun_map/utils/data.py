@@ -9,7 +9,7 @@ from lxml import html
 USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)"
 PRETTY_TIME_REGEX = re.compile('^00:')
 
-EVENT_SUMMARY_COLUMNS = ['event_name', 'event_title', 'run_count', 'personal_best']
+EVENT_SUMMARY_COLUMNS = ['event_name', 'run_count', 'personal_best']
 
 
 def parse_fields(row: html.Element) -> Dict[str, Union[str, int]]:
@@ -27,7 +27,6 @@ def parse_fields(row: html.Element) -> Dict[str, Union[str, int]]:
             a = field.xpath('./a')[0]
             url = a.get('href')  # e.g. 'https://www.parkrun.org.uk/highburyfields/results'
             data_dict['event_name'] = url.split('/')[-2]
-            data_dict['event_title'] = a.text  # e.g. 'Highbury Fields parkrun'
         if i == 1:
             data_dict['run_count'] = int(field.text)  # e.g. 100
         if i == 4:
