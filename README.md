@@ -1,4 +1,4 @@
-# Parkrun mapper
+# Parkrun map
 
 ![Example usage](demo.gif)
 
