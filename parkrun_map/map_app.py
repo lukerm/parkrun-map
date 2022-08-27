@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 from dash.dependencies import Input, Output, State
 from waitress import serve
 
-from parkrun_map.utils.data import get_athlete_data, get_course_data
+from parkrun_map.utils.data import get_athlete_and_course_data
 
 
 FIG_HEIGHT = 700

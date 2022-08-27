@@ -66,3 +66,21 @@ def get_course_data():
     df_courses['latitude'] = round(df_courses['latitude'], 5)
     df_courses['longitude'] = round(df_courses['longitude'], 5)
     return df_courses
+
+
+def get_athlete_and_course_data(athlete_id: Union[str, int]) -> pd.DataFrame:
+    athlete_summary_data = get_athlete_data(athlete_id=athlete_id)
+    course_data = get_course_data()
+
+    # Check for missing courses
+    missing_courses = set(athlete_summary_data['event_name']) - set(course_data['event_name'])
+    if len(missing_courses) > 0:
+        course_data = update_course_data(new_course_event_names=missing_courses)
+
+    # Right join to enable showing missing parkruns
+    df_merged = pd.merge(athlete_summary_data, course_data, on='event_name', how='right')
+    df_merged.loc[pd.isnull(df_merged['run_count']), 'personal_best'] = 'N/A'
+    df_merged.loc[pd.isnull(df_merged['run_count']), 'run_count'] = 0
+    df_merged['run_count'] = df_merged['run_count'].astype(int)
+
+    return df_merged
