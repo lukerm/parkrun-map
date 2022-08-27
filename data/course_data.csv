@@ -1,6 +1,6 @@
 event_name,country,event_title,latitude,longitude
 airliebeach,Australia,Airlie Beach parkrun,-20.267159,148.711127
-albert-melbourne,Australia,"Albert parkrun, Melbourne",-37.84935,144.976456
+albertmelbourne,Australia,"Albert parkrun, Melbourne",-37.84935,144.976456
 alburywodonga,Australia,Albury Wodonga parkrun,-36.090491,146.906776
 aldingabeach,Australia,Aldinga Beach parkrun,-35.27773,138.44294
 altonabeach,Australia,Altona Beach parkrun,-37.883923,144.798163
@@ -1091,7 +1091,7 @@ arrowvalley,UK,Arrow Valley parkrun,52.308469,-1.9097539999999997
 ashford,UK,Ashford parkrun,51.146691,0.852915
 ashford-juniors,UK,Ashford junior parkrun,51.144973,0.862346
 ashlyns-juniors,UK,Ashlyns junior parkrun,51.752607,-0.561269
-ashton-court,UK,Ashton Court parkrun,51.446505,-2.642877
+ashtoncourt,UK,Ashton Court parkrun,51.446505,-2.642877
 avenhampark-juniors,UK,Avenham Park junior parkrun,53.753668,-2.698576
 aviemore,UK,Aviemore parkrun,57.21369,-3.80319
 aylesbury,UK,Aylesbury parkrun,51.83197,-0.82137
@@ -1153,7 +1153,7 @@ billericay,UK,Billericay parkrun,51.634234,0.420018
 billingham-juniors,UK,Billingham junior parkrun,54.609591200248325,-1.2901123707173707
 birchesvalley-juniors,UK,Birches Valley junior parkrun,52.75074,-1.9686000000000001
 birkenhead,UK,Birkenhead parkrun,53.395685,-3.051665
-black-park,UK,Black Park parkrun,51.540213,-0.547814
+blackpark,UK,Black Park parkrun,51.540213,-0.547814
 blackcombe,UK,Black Combe parkrun,54.202058300000004,-3.3125924000000007
 blackhill,UK,Blackhill parkrun,54.858305,-1.842353
 blackpool,UK,Blackpool parkrun,53.813377,-3.021861
@@ -1224,8 +1224,8 @@ cambridge,UK,Cambridge parkrun,52.240675,0.16398
 cambridge-juniors,UK,Cambridge junior parkrun,52.2345,0.16545000000000004
 camperdown,UK,"Camperdown parkrun, Dundee",56.48162,-3.040423
 cannockchase,UK,Cannock Chase parkrun,52.727716,-1.985977
-cannon-hill,UK,"Cannon Hill parkrun, Birmingham",52.44715,-1.9099400000000002
-cannon-hill-juniors,UK,"Cannon Hill junior parkrun, Birmingham",52.449968,-1.9042400000000002
+cannonhill,UK,"Cannon Hill parkrun, Birmingham",52.44715,-1.9099400000000002
+cannonhill-juniors,UK,"Cannon Hill junior parkrun, Birmingham",52.449968,-1.9042400000000002
 canonspark,UK,Canons Park parkrun,51.608983,-0.290601
 canterbury,UK,Canterbury parkrun,51.297183,1.054104
 capepembrokelighthouse,UK,Cape Pembroke Lighthouse parkrun,-51.682514,-57.736104
@@ -1405,7 +1405,7 @@ florencepark-juniors,UK,Florence Park junior parkrun,51.735715,-1.222652
 folkestone,UK,Folkestone parkrun,51.07414,1.16312
 footscraymeadows,UK,Foots Cray Meadows parkrun,51.42244,0.1205492
 ford,UK,Ford parkrun,54.1997582,-3.0869919
-forest-of-dean,UK,Forest of Dean parkrun,51.810286,-2.599382
+forestofdean,UK,Forest of Dean parkrun,51.810286,-2.599382
 forestofdean-juniors,UK,Forest of Dean junior parkrun,51.809988,-2.599533
 forestrec,UK,Forest Rec parkrun,52.965054,-1.158127
 forestrec-juniors,UK,Forest Rec junior parkrun,52.965631,-1.15865
@@ -1460,7 +1460,7 @@ guildford,UK,Guildford parkrun,51.249668,-0.559616
 guildford-juniors,UK,Guildford junior parkrun,51.245329,-0.563596
 gunnersbury,UK,Gunnersbury parkrun,51.49787,-0.282662
 gunpowder,UK,Gunpowder parkrun,51.67263,-0.009297
-hackney-marshes,UK,Hackney Marshes parkrun,51.561225,-0.036907
+hackneymarshes,UK,Hackney Marshes parkrun,51.561225,-0.036907
 hackworth,UK,Hackworth parkrun,54.628094,-1.6448410000000002
 hadleigh,UK,"Hadleigh parkrun, Essex",51.542892,0.571292
 hafanpwllheli,UK,Hafan Pwllheli parkrun,52.895878,-4.387407
@@ -1729,7 +1729,7 @@ northwich-juniors,UK,Northwich junior parkrun,53.258388,-2.508541
 norwich,UK,Norwich parkrun,52.6192657,1.2535836
 nostell,UK,Nostell parkrun,53.654048,-1.386038
 novaprestatyn,UK,Nova Prestatyn parkrun,53.335335,-3.438417
-oak-hill,UK,Oak Hill parkrun,51.637834,-0.154152
+oakhill,UK,Oak Hill parkrun,51.637834,-0.154152
 oaklands,UK,Oaklands parkrun,52.464491,-1.819981
 oakwellhall,UK,Oakwell Hall parkrun,53.739457,-1.671569
 ockwells-juniors,UK,Ockwells junior parkrun,51.502936,-0.733498
