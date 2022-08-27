@@ -2,6 +2,8 @@
 
 # Parkrun mapper
 
+![Example usage](demo.gif)
+
 Like to parkrun? This project helps you to visualize where you've been running, and where you could run next.
 Simply run the app locally, and enter an athlete ID (e.g. your own one). 
 
