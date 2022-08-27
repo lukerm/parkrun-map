@@ -1,5 +1,3 @@
-import os
-
 DOMAIN_EXT_LOOKUP = {
     'Australia': '.com.au',
     'Austria': '.co.at',
