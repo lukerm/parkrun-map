@@ -68,7 +68,7 @@ def get_graph(athlete_id, checkbox_options):
             opacity=1
         ),
         text=athlete_data_complete['event_title_pretty'],
-        hovertemplate='<b>%{customdata[7]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
+        hovertemplate='<b>%{customdata[7]}</b><br><br>Run count = %{customdata[1]:.0f}<br>Personal best = %{customdata[2]}<extra></extra>'
     ))
 
     if len(athlete_data_missing) > 0:
@@ -96,9 +96,9 @@ def get_graph(athlete_id, checkbox_options):
 
 
 base_figure = px.scatter_mapbox(
-        get_athlete_data(-1),
+        get_athlete_and_course_data(123),
         lat="latitude", lon="longitude",
-        hover_data={"run_count": False, "personal_best": False, "latitude": False, "longitude": False, "marker_color": False},
+        hover_data={"run_count": False, "personal_best": False, "latitude": False, "longitude": False},
         color_discrete_sequence=[COLOUR_COMPLETE],
         zoom=1, height=FIG_HEIGHT,
         opacity=0
