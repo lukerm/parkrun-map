@@ -15,8 +15,8 @@ _Warning: Running this project will programmatically visit the athlete's home re
 Set up this python project using a virtual environment, then installing the dependencies with `pip`:
 
 ```bash
-$ mkvirtualenv parkrun-map
-$ pip install -r requirements.txt
+mkvirtualenv parkrun-map
+pip install -r requirements.txt
 ```
 
 ## Run it
@@ -24,9 +24,9 @@ $ pip install -r requirements.txt
 You can use the `waitress` WSGI server to run `map_app.py` as follows:
 
 ```bash
-$ PORT=2070
-$ waitress-serve --port=$PORT parkrun_map.map_app:map_app.server
-$ echo "paste http://0.0.0.0:$PORT into your browser"
+PORT=2070
+waitress-serve --port=$PORT parkrun_map.map_app:map_app.server
+echo "paste http://0.0.0.0:$PORT into your browser"
 ```
 
 ## About
