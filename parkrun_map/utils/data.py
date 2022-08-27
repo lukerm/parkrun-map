@@ -119,10 +119,10 @@ def get_athlete_and_course_data(athlete_id: Union[str, int]) -> pd.DataFrame:
     athlete_summary_data = get_athlete_data(athlete_id=athlete_id)
     course_data = get_course_data()
 
-    # Check for missing courses
+    # Check for missing courses (i.e. an athlete ran at a course that is not listed in COURSE_FILEPATH)
     missing_courses = set(athlete_summary_data['event_name']) - set(course_data['event_name'])
     if len(missing_courses) > 0:
-        df_missing = course_data[course_data['event_name'].isin(missing_courses)]
+        df_missing = athlete_summary_data[athlete_summary_data['event_name'].isin(missing_courses)]
         course_data = update_course_data(new_course_event_names=df_missing['event_name'], new_course_countries=df_missing['country'])
 
     # Right join to enable showing missing parkruns
