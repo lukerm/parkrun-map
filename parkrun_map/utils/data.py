@@ -1,13 +1,16 @@
 import os
+import random
 import re
-from typing import Dict, Union
+import time
 import urllib
+from typing import Dict, Iterable, Union
 
 import pandas as pd
 import requests
 from lxml import html
 
-from . lookup import COUNTRY_LOOKUP
+from . lookup import COUNTRY_LOOKUP, DOMAIN_EXT_LOOKUP
+from . parse import parse_event_coordinates
 
 
 USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)"
@@ -74,6 +77,44 @@ def get_course_data():
     return df_courses
 
 
+def get_new_course_data(event_name: str, country: str):
+    main_event_page_url = f'https://www.parkrun{DOMAIN_EXT_LOOKUP[country]}/{event_name}'
+
+    time.sleep(random.uniform(2, 4))
+    results_page_url = f'{main_event_page_url}/results/latestresults/'
+    response_results_page = requests.get(results_page_url, headers={'user-agent': USER_AGENT})
+    html_tree = html.fromstring(response_results_page.text)
+    event_title = html_tree.xpath('//div[@class="Results-header"]/h1')[0].text
+
+    time.sleep(random.uniform(2, 4))
+    course_page_url = f'{main_event_page_url}/course/'
+    response_course_page = requests.get(course_page_url, headers={'user-agent': USER_AGENT})
+    latitude, longitude = parse_event_coordinates(html_str=response_course_page.text)
+
+    return pd.DataFrame({
+        'event_name': [event_name], 'country': [country], 'event_title': [event_title],
+        'latitude': [latitude], 'longitude': [longitude],
+    })
+
+
+def update_course_data(new_course_event_names: Iterable[str], new_course_countries: Iterable[str]):
+
+    new_course_data = pd.DataFrame(None)
+    for event_name, country in zip(new_course_event_names, new_course_countries):
+        time.sleep(random.uniform(0, 1))
+        df_new_course = get_new_course_data(event_name=event_name, country=country)
+        new_course_data = pd.concat([new_course_data, df_new_course])
+
+    old_course_data = get_course_data()
+    updated_course_data = pd.concat([old_course_data, new_course_data])
+    updated_course_data['latitude'] = round(updated_course_data['latitude'], 5)
+    updated_course_data['longitude'] = round(updated_course_data['longitude'], 5)
+    updated_course_data = updated_course_data.sort_values(by=['country', 'event_name'])
+    updated_course_data.to_csv(COURSE_FILEPATH, index=False)
+
+    return updated_course_data
+
+
 def get_athlete_and_course_data(athlete_id: Union[str, int]) -> pd.DataFrame:
     athlete_summary_data = get_athlete_data(athlete_id=athlete_id)
     course_data = get_course_data()
@@ -81,7 +122,8 @@ def get_athlete_and_course_data(athlete_id: Union[str, int]) -> pd.DataFrame:
     # Check for missing courses
     missing_courses = set(athlete_summary_data['event_name']) - set(course_data['event_name'])
     if len(missing_courses) > 0:
-        course_data = update_course_data(new_course_event_names=missing_courses)
+        df_missing = course_data[course_data['event_name'].isin(missing_courses)]
+        course_data = update_course_data(new_course_event_names=df_missing['event_name'], new_course_countries=df_missing['country'])
 
     # Right join to enable showing missing parkruns
     df_merged = pd.merge(athlete_summary_data, course_data, on=['event_name', 'country'], how='right')
