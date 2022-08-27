@@ -10,6 +10,7 @@ from lxml import html
 USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)"
 PRETTY_TIME_REGEX = re.compile('^00:')
 
+COURSE_FILEPATH = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'course_data.csv')
 EVENT_SUMMARY_COLUMNS = ['event_name', 'run_count', 'personal_best']
 
 
@@ -61,5 +62,7 @@ def get_athlete_data(athlete_id: Union[str, int]) -> pd.DataFrame:
 
 
 def get_course_data():
-    course_filepath = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'course_data.csv')
-    return pd.read_csv(course_filepath)
+    df_courses = pd.read_csv(COURSE_FILEPATH)
+    df_courses['latitude'] = round(df_courses['latitude'], 5)
+    df_courses['longitude'] = round(df_courses['longitude'], 5)
+    return df_courses
