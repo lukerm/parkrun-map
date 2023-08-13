@@ -1,4 +1,5 @@
 import argparse
+from string import ascii_lowercase
 
 import dash
 from dash import dcc
@@ -30,6 +31,7 @@ def get_graph(athlete_id, checkbox_options):
     show_missing = 'show_missing' in checkbox_options
     show_parkruns = 'show_parkruns' in checkbox_options
     show_juniors = 'show_juniors' in checkbox_options
+    az_mode = 'az_mode' in checkbox_options
     if all([show_parkruns, show_juniors]):
         pass  # No filtering on usual / junior events
     elif show_parkruns:
@@ -41,6 +43,11 @@ def get_graph(athlete_id, checkbox_options):
 
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
+    elif az_mode:
+        athlete_data['first_letter'] = athlete_data['event_title'].apply(lambda title: title[0].lower())
+        acquired_letters = sorted(list(set(athlete_data[athlete_data['run_count'] > 0]['first_letter'])))
+        missing_letters = list(set(list(ascii_lowercase)) - set(acquired_letters))
+        athlete_data = athlete_data[(athlete_data['run_count'] > 0) | (athlete_data['first_letter'].isin(missing_letters))]
 
     # Extra tweaks for prettiness
     athlete_data['event_title_pretty'] = athlete_data['event_title'].apply(
@@ -68,7 +75,7 @@ def get_graph(athlete_id, checkbox_options):
             opacity=1
         ),
         text=athlete_data_complete['event_title_pretty'],
-        hovertemplate='<b>%{customdata[7]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
+        hovertemplate='<b>%{customdata[8]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
     ))
 
     if len(athlete_data_missing) > 0:
@@ -118,6 +125,7 @@ map_app.layout = html.Div([
             {'label': 'Show parkrun events', 'value': 'show_parkruns'},
             {'label': 'Show junior events', 'value': 'show_juniors'},
             {'label': 'Show missing events', 'value': 'show_missing'},
+            {'label': 'A-Z mode', 'value': 'az_mode'},
         ],
         value=['show_parkruns'],
         labelStyle={'display': 'inline-block'}
