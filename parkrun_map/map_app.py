@@ -42,10 +42,10 @@ def get_graph(athlete_id, checkbox_options):
         # Filter only on junior events
         athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' in name)]
 
+    athlete_data['first_letter'] = athlete_data['event_title'].apply(lambda title: title[0].lower())
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
     elif az_mode:
-        athlete_data['first_letter'] = athlete_data['event_title'].apply(lambda title: title[0].lower())
         acquired_letters = sorted(list(set(athlete_data[athlete_data['run_count'] > 0]['first_letter'])))
         missing_letters = list(set(list(ascii_lowercase)) - set(acquired_letters))
         athlete_data = athlete_data[(athlete_data['run_count'] > 0) | (athlete_data['first_letter'].isin(missing_letters))]
