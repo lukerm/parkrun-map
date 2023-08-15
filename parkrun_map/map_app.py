@@ -1,4 +1,5 @@
 import argparse
+from math import sqrt
 from string import ascii_lowercase
 
 import dash
@@ -60,8 +61,11 @@ def get_graph(athlete_id, checkbox_options):
         raise dash.exceptions.PreventUpdate()
 
     lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
+    athlete_data['distance'] = athlete_data.apply(lambda row: sqrt((row['latitude'] - lat_center)**2 + (row['longitude'] - lon_center)**2), axis=1)
     athlete_data_complete = athlete_data[athlete_data['run_count'] > 0]
     athlete_data_missing = athlete_data[athlete_data['run_count'] == 0]
+    if az_mode:
+        athlete_data_nearest = athlete_data_missing.sort_values(by='distance', ascending=True).groupby('first_letter').head(1)
 
     fig = go.Figure()
     fig.add_trace(go.Scattermapbox(
@@ -89,6 +93,20 @@ def get_graph(athlete_id, checkbox_options):
                 opacity=0.6
             ),
             text=athlete_data_missing['event_title_pretty'],
+            hoverinfo='text',
+        ))
+
+    if az_mode and len(athlete_data_nearest) > 0:
+        fig.add_trace(go.Scattermapbox(
+            lat=athlete_data_nearest['latitude'],
+            lon=athlete_data_nearest['longitude'],
+            mode='markers',
+            marker=go.scattermapbox.Marker(
+                size=12,
+                color=COLOUR_MISSING,
+                opacity=1,
+            ),
+            text=athlete_data_nearest['event_title_pretty'],
             hoverinfo='text',
         ))
 
