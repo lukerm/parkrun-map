@@ -1,6 +1,7 @@
 import argparse
 from math import sqrt
 from string import ascii_lowercase
+from typing import List
 
 import dash
 from dash import dcc
@@ -190,6 +191,17 @@ def reload_map(_map, athlete_id, checkbox_options):
         return html.Div(id='map', children=dcc.Graph(figure=fig, config={'displayModeBar': False}))
     else:
         raise dash.exceptions.PreventUpdate()
+
+
+@map_app.callback(
+    [Output(f'letter_{letter}', 'style') for letter in ascii_lowercase],
+    [Input('az_store', 'data')]
+)
+def update_acquired_letter(acquired_letters: List[str]):
+    return [
+        {'color': COLOUR_COMPLETE} if letter in acquired_letters else {'color': COLOUR_MISSING}
+        for letter in ascii_lowercase
+    ]
 
 
 if __name__ == "__main__":
