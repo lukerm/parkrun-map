@@ -1,6 +1,6 @@
 import argparse
 from math import sqrt
-from string import ascii_lowercase, ascii_uppercase
+from string import ascii_lowercase
 
 import dash
 from dash import dcc
@@ -151,7 +151,7 @@ map_app.layout = html.Div([
     ),
     html.Div(
         id='letters',
-        children=[html.B(letter, style={'color': COLOUR_MISSING}, id=f'letter_{letter}') for letter in ascii_uppercase],
+        children=[html.B(letter.upper(), style={'color': COLOUR_MISSING}, id=f'letter_{letter}') for letter in ascii_lowercase],
         style={'display': 'none'},
     ),
     html.Div(id='map_wrapper', children=dcc.Graph(id='map', figure=base_figure, config={'displayModeBar': False})),
