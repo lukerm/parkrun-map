@@ -43,6 +43,7 @@ def get_graph(athlete_id, checkbox_options):
         athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' in name)]
 
     athlete_data['first_letter'] = athlete_data['event_title'].apply(lambda title: title[0].lower())
+    acquired_letters = []
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
     elif az_mode:
@@ -117,7 +118,7 @@ def get_graph(athlete_id, checkbox_options):
     fig.update_layout(showlegend=False)
     fig.update_layout(height=FIG_HEIGHT)
 
-    return fig
+    return fig, acquired_letters
 
 
 base_figure = px.scatter_mapbox(
@@ -154,11 +155,16 @@ map_app.layout = html.Div([
         style={'display': 'none'},
     ),
     html.Div(id='map_wrapper', children=dcc.Graph(id='map', figure=base_figure, config={'displayModeBar': False})),
+    dcc.Store(id='az_store', data=[])
 ])
 
 
 @map_app.callback(
-    Output('map', 'figure'),
+    [
+        Output('map', 'figure'),
+        Output('az_store', 'data'),
+        Output('letters', 'style'),
+    ],
     [Input('athlete_id', 'value'), Input('checkboxes', 'value')]
 )
 def update_graph(athlete_id, checkbox_options):
@@ -166,7 +172,9 @@ def update_graph(athlete_id, checkbox_options):
     if context.inputs['athlete_id.value'] is None:
         raise dash.exceptions.PreventUpdate()
 
-    return get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+    letters_display = {'display': 'block'} if 'az_mode' in checkbox_options else {'display': 'none'}
+    fig, acquired_letters = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+    return fig, acquired_letters, letters_display
 
 
 # Note: this callback is only needed to reload the map after the first load.
@@ -179,7 +187,7 @@ def update_graph(athlete_id, checkbox_options):
 )
 def reload_map(_map, athlete_id, checkbox_options):
     if athlete_id is not None:
-        fig = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+        fig, _ = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
         return html.Div(id='map', children=dcc.Graph(figure=fig, config={'displayModeBar': False}))
     else:
         raise dash.exceptions.PreventUpdate()
