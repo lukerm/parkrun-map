@@ -151,7 +151,8 @@ map_app.layout = html.Div([
     ),
     html.Div(
         id='letters',
-        children=[html.B(letter.upper(), style={'color': COLOUR_MISSING}, id=f'letter_{letter}') for letter in ascii_lowercase],
+        children=[html.B(letter.upper(), style={'color': COLOUR_MISSING}, id=f'letter_{letter}') for letter in ascii_lowercase] +
+                 [html.B(f' (0 / 26)', style={'color': COLOUR_COMPLETE}, id='letter_total')],
         style={'display': 'none'},
     ),
     html.Div(id='map_wrapper', children=dcc.Graph(id='map', figure=base_figure, config={'displayModeBar': False})),
@@ -194,14 +195,14 @@ def reload_map(_map, athlete_id, checkbox_options):
 
 
 @map_app.callback(
-    [Output(f'letter_{letter}', 'style') for letter in ascii_lowercase],
+    [Output(f'letter_{letter}', 'style') for letter in ascii_lowercase] + [Output('letter_total', 'children')],
     [Input('az_store', 'data')]
 )
 def update_acquired_letter(acquired_letters: List[str]):
     return [
         {'color': COLOUR_COMPLETE} if letter in acquired_letters else {'color': COLOUR_MISSING}
         for letter in ascii_lowercase
-    ]
+    ] + [f' ({len(acquired_letters)} / 26)']
 
 
 if __name__ == "__main__":
