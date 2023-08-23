@@ -43,8 +43,12 @@ def get_graph(athlete_id, checkbox_options):
         # Filter only on junior events
         athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' in name)]
 
-    athlete_data['first_letter'] = athlete_data['event_title'].apply(lambda title: title[0].lower())
+    athlete_data['event_title_pretty'] = athlete_data['event_title'].apply(
+        lambda title: title.replace('parkrun', '').replace('junior', 'Juniors').replace(' ,', ',').strip()
+    )
+    athlete_data['first_letter'] = athlete_data['event_title_pretty'].apply(lambda title: title[0].lower())
     acquired_letters = sorted(list(set(athlete_data[athlete_data['run_count'] > 0]['first_letter'])))
+
     if not show_missing:
         athlete_data = athlete_data[athlete_data['run_count'] > 0]
     elif az_mode:
@@ -52,9 +56,6 @@ def get_graph(athlete_id, checkbox_options):
         athlete_data = athlete_data[(athlete_data['run_count'] > 0) | (athlete_data['first_letter'].isin(missing_letters))]
 
     # Extra tweaks for prettiness
-    athlete_data['event_title_pretty'] = athlete_data['event_title'].apply(
-        lambda title: title.replace('parkrun', '').replace('junior', 'Juniors').replace(' ,', ',').strip()
-    )
     athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: COLOUR_MISSING if count == 0 else COLOUR_COMPLETE)
     athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
 
@@ -80,7 +81,7 @@ def get_graph(athlete_id, checkbox_options):
             opacity=1
         ),
         text=athlete_data_complete['event_title_pretty'],
-        hovertemplate='<b>%{customdata[8]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
+        hovertemplate='<b>%{customdata[7]}</b><br><br>Run count = %{customdata[2]:.0f}<br>Personal best = %{customdata[3]}<extra></extra>'
     ))
 
     if len(athlete_data_missing) > 0:
