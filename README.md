@@ -31,11 +31,11 @@ echo "paste http://0.0.0.0:$PORT into your browser"
 
 ## About
 
-[![Parkrun logo](https://www.renfrewshireleisure.com/media/187953/parkrun-logo.jpg)](https://www.parkrun.com)
+[![Parkrun logo](http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg)](https://www.parkrun.com)
 
 foobar
 
-<img src="https://www.renfrewshireleisure.com/media/187953/parkrun-logo.jpg" alt="Parkrun logo" width="100"/>
+<img src="http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg" alt="Parkrun logo" width="100"/>
 
 _Disclaimer: The author is in no way affiliated to parkrun Limited, except for being an avid fan of this great event._
 
