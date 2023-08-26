@@ -35,7 +35,7 @@ echo "paste http://0.0.0.0:$PORT into your browser"
 
 foobar
 
-<img src="http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg" alt="Parkrun logo" width="100"/>
+<img src="http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg" alt="Parkrun logo" width="200"/>
 
 _Disclaimer: The author is in no way affiliated to parkrun Limited, except for being an avid fan of this great event._
 
