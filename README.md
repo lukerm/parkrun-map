@@ -52,4 +52,4 @@ speeds and abilities. When finished, pat yourself on the back, feel the endorphi
 
 It's free, and always will be. Find out more info on the website. 
 
-<img src="http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg" alt="Parkrun logo" width="200"/>
+<a href="https://www.parkrun.com" target="_blank"><img src="http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg" alt="Parkrun logo" width="200"/></a>
