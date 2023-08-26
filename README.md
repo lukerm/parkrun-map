@@ -44,8 +44,6 @@ Hopefully this mode will provide renewed focus for hungry parkrun conquistador(a
 
 ## About
 
-[![Parkrun logo](http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg)](https://www.parkrun.com)
-
 _Disclaimer: The author is in no way affiliated to parkrun Limited, except for being an avid fan of this great event._
 
 [parkrun](https://www.parkrun.com) is a volunteer-led health and well-being project that runs every Saturday morning in many parks around the world
@@ -53,3 +51,5 @@ _Disclaimer: The author is in no way affiliated to parkrun Limited, except for b
 speeds and abilities. When finished, pat yourself on the back, feel the endorphin boost and grab a coffee with other like-minded participants. 
 
 It's free, and always will be. Find out more info on the website. 
+
+<img src="http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg" alt="Parkrun logo" width="200"/>
