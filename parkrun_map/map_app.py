@@ -1,4 +1,7 @@
 import argparse
+from math import sqrt
+from string import ascii_lowercase
+from typing import List
 
 import dash
 from dash import dcc
@@ -30,6 +33,7 @@ def get_graph(athlete_id, checkbox_options):
     show_missing = 'show_missing' in checkbox_options
     show_parkruns = 'show_parkruns' in checkbox_options
     show_juniors = 'show_juniors' in checkbox_options
+    az_mode = 'az_mode' in checkbox_options
     if all([show_parkruns, show_juniors]):
         pass  # No filtering on usual / junior events
     elif show_parkruns:
@@ -39,13 +43,19 @@ def get_graph(athlete_id, checkbox_options):
         # Filter only on junior events
         athlete_data = athlete_data[athlete_data['event_name'].apply(lambda name: '-juniors' in name)]
 
-    if not show_missing:
-        athlete_data = athlete_data[athlete_data['run_count'] > 0]
-
-    # Extra tweaks for prettiness
     athlete_data['event_title_pretty'] = athlete_data['event_title'].apply(
         lambda title: title.replace('parkrun', '').replace('junior', 'Juniors').replace(' ,', ',').strip()
     )
+    athlete_data['first_letter'] = athlete_data['event_title_pretty'].apply(lambda title: title[0].lower())
+    acquired_letters = sorted(list(set(athlete_data[athlete_data['run_count'] > 0]['first_letter'])))
+
+    if not show_missing:
+        athlete_data = athlete_data[athlete_data['run_count'] > 0]
+    elif az_mode:
+        missing_letters = list(set(list(ascii_lowercase)) - set(acquired_letters))
+        athlete_data = athlete_data[(athlete_data['run_count'] > 0) | (athlete_data['first_letter'].isin(missing_letters))]
+
+    # Extra tweaks for prettiness
     athlete_data['marker_color'] = athlete_data['run_count'].apply(lambda count: COLOUR_MISSING if count == 0 else COLOUR_COMPLETE)
     athlete_data['marker_opacity'] = athlete_data['run_count'].apply(lambda count: 0.33 if count == 0 else 1)
 
@@ -53,8 +63,11 @@ def get_graph(athlete_id, checkbox_options):
         raise dash.exceptions.PreventUpdate()
 
     lat_center, lon_center = athlete_data.sort_values('run_count', ascending=False).iloc[0][['latitude', 'longitude']].values
+    athlete_data['distance'] = athlete_data.apply(lambda row: sqrt((row['latitude'] - lat_center)**2 + (row['longitude'] - lon_center)**2), axis=1)
     athlete_data_complete = athlete_data[athlete_data['run_count'] > 0]
     athlete_data_missing = athlete_data[athlete_data['run_count'] == 0]
+    if az_mode:
+        athlete_data_nearest = athlete_data_missing.sort_values(by='distance', ascending=True).groupby('first_letter').head(1)
 
     fig = go.Figure()
     fig.add_trace(go.Scattermapbox(
@@ -85,6 +98,20 @@ def get_graph(athlete_id, checkbox_options):
             hoverinfo='text',
         ))
 
+    if az_mode and len(athlete_data_nearest) > 0:
+        fig.add_trace(go.Scattermapbox(
+            lat=athlete_data_nearest['latitude'],
+            lon=athlete_data_nearest['longitude'],
+            mode='markers',
+            marker=go.scattermapbox.Marker(
+                size=12,
+                color=COLOUR_MISSING,
+                opacity=1,
+            ),
+            text=athlete_data_nearest['event_title_pretty'],
+            hoverinfo='text',
+        ))
+
     fig.update_layout(mapbox_style="carto-positron")
     fig.update_layout(mapbox_center={'lat': lat_center, 'lon': lon_center})
     fig.update_layout(mapbox_zoom=10)
@@ -92,7 +119,7 @@ def get_graph(athlete_id, checkbox_options):
     fig.update_layout(showlegend=False)
     fig.update_layout(height=FIG_HEIGHT)
 
-    return fig
+    return fig, acquired_letters
 
 
 base_figure = px.scatter_mapbox(
@@ -118,16 +145,28 @@ map_app.layout = html.Div([
             {'label': 'Show parkrun events', 'value': 'show_parkruns'},
             {'label': 'Show junior events', 'value': 'show_juniors'},
             {'label': 'Show missing events', 'value': 'show_missing'},
+            {'label': 'A-Z mode', 'value': 'az_mode'},
         ],
         value=['show_parkruns'],
         labelStyle={'display': 'inline-block'}
     ),
+    html.Div(
+        id='letters',
+        children=[html.B(letter.upper(), style={'color': COLOUR_MISSING}, id=f'letter_{letter}') for letter in ascii_lowercase] +
+                 [html.B(f' (0 / 26)', style={'color': COLOUR_COMPLETE}, id='letter_total')],
+        style={'display': 'none'},
+    ),
     html.Div(id='map_wrapper', children=dcc.Graph(id='map', figure=base_figure, config={'displayModeBar': False})),
+    dcc.Store(id='az_store', data=[])
 ])
 
 
 @map_app.callback(
-    Output('map', 'figure'),
+    [
+        Output('map', 'figure'),
+        Output('az_store', 'data'),
+        Output('letters', 'style'),
+    ],
     [Input('athlete_id', 'value'), Input('checkboxes', 'value')]
 )
 def update_graph(athlete_id, checkbox_options):
@@ -135,7 +174,9 @@ def update_graph(athlete_id, checkbox_options):
     if context.inputs['athlete_id.value'] is None:
         raise dash.exceptions.PreventUpdate()
 
-    return get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+    letters_display = {'display': 'block'} if 'az_mode' in checkbox_options else {'display': 'none'}
+    fig, acquired_letters = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+    return fig, acquired_letters, letters_display
 
 
 # Note: this callback is only needed to reload the map after the first load.
@@ -148,10 +189,21 @@ def update_graph(athlete_id, checkbox_options):
 )
 def reload_map(_map, athlete_id, checkbox_options):
     if athlete_id is not None:
-        fig = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+        fig, _ = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
         return html.Div(id='map', children=dcc.Graph(figure=fig, config={'displayModeBar': False}))
     else:
         raise dash.exceptions.PreventUpdate()
+
+
+@map_app.callback(
+    [Output(f'letter_{letter}', 'style') for letter in ascii_lowercase] + [Output('letter_total', 'children')],
+    [Input('az_store', 'data')]
+)
+def update_acquired_letter(acquired_letters: List[str]):
+    return [
+        {'color': COLOUR_COMPLETE} if letter in acquired_letters else {'color': COLOUR_MISSING}
+        for letter in ascii_lowercase
+    ] + [f' ({len(acquired_letters)} / 26)']
 
 
 if __name__ == "__main__":
