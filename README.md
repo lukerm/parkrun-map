@@ -33,6 +33,10 @@ echo "paste http://0.0.0.0:$PORT into your browser"
 
 [![Parkrun logo](https://www.renfrewshireleisure.com/media/187953/parkrun-logo.jpg)](https://www.parkrun.com)
 
+foobar
+
+<img src="https://www.renfrewshireleisure.com/media/187953/parkrun-logo.jpg" alt="Parkrun logo" width="100"/>
+
 _Disclaimer: The author is in no way affiliated to parkrun Limited, except for being an avid fan of this great event._
 
 [parkrun](https://www.parkrun.com) is a volunteer-led health and well-being project that runs every Saturday morning in many parks around the world
