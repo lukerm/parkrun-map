@@ -29,6 +29,19 @@ waitress-serve --port=$PORT parkrun_map.map_app:map_app.server
 echo "paste http://0.0.0.0:$PORT into your browser"
 ```
 
+## A-Z Mode <sup>[NEW]</sup>
+
+This mode shows you how far progressed you are through the "parkrun A-Z", accessible via the "A-Z mode" checkbox.
+At a minimum it shows which letters the athlete has achieved (and which ones are still missing) by looking at the first
+letters of each event you have participated in. If "Show missing events" is also ticked, then A-Z mode filters it to
+show only those missing events that would give you a new letter (with the closest one for each remaining letter highlighted
+by being a bit bigger).
+
+Hopefully this mode will provide renewed focus for hungry parkrun conquistador(a)s - enjoy!
+
+
+![Example from the author](https://user-images.githubusercontent.com/13883308/263394817-581c9ff0-f14e-43db-92e9-c3f97ef7c523.png)
+
 ## About
 
 <img src="http://www.eynshamroadrunners.org.uk/wp-content/uploads/2015/09/Parkrun_32.jpg" alt="Parkrun logo" width="200"/>
