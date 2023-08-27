@@ -917,6 +917,7 @@ zalewzyrardowski,Poland,parkrun Zalew Żyrardowski,52.03765,20.44978
 zamekwmalborku,Poland,parkrun Zamek w Malborku,54.03841,19.02515
 zary,Poland,parkrun Żary,51.61863,15.13534
 zielonagora,Poland,parkrun Zielona Góra,51.94271,15.52126
+zielonyjar,Poland,parkrun Zielony Jar,50.09534,20.05997
 angarskieprudy,Russia,parkrun Ангарские пруды,55.87686,37.52529
 babushkinskynayauze,Russia,parkrun Бабушкинский на Яузе,55.87474,37.65864
 balashikhazarechnaya,Russia,parkrun Балашиха Заречная,55.81476,37.96043
@@ -1254,9 +1255,11 @@ skatas,Sweden,Skatås parkrun,57.70557,12.04493
 uppsala,Sweden,Uppsala parkrun,59.83322,17.6569
 vallaskogen,Sweden,Vallaskogen parkrun,58.3954,15.60015
 vaxjosjon,Sweden,Växjösjön parkrun,56.86491,14.80362
+abbeypark,UK,Abbey Park parkrun,52.64397,-1.1357
 aberbeeg,UK,Aberbeeg parkrun,51.7185,-3.13043
 aberdare,UK,Aberdare parkrun,51.71889,-3.45548
 aberdeen,UK,Aberdeen parkrun,57.17266,-2.07856
+aberfields,UK,Aberfields parkrun,51.61448,-3.53871
 aberystwyth,UK,Aberystwyth parkrun,52.41155,-4.07661
 aberystwyth-juniors,UK,Aberystwyth junior parkrun,52.41288,-4.07842
 abingdon,UK,Abingdon parkrun,51.66791,-1.26026
@@ -1291,8 +1294,10 @@ arrowvalley,UK,Arrow Valley parkrun,52.30847,-1.90975
 ashbournerecreationground,UK,Ashbourne Recreation Ground parkrun,53.01631,-1.7283
 ashford,UK,Ashford parkrun,51.14669,0.85292
 ashford-juniors,UK,Ashford junior parkrun,51.14497,0.86235
+ashingtoncommunitywoodland,UK,Ashington Community Woodland parkrun,55.19581,-1.57788
 ashlyns-juniors,UK,Ashlyns junior parkrun,51.75261,-0.56127
 ashtoncourt,UK,Ashton Court parkrun,51.4465,-2.64288
+auldcathiedistrict,UK,Auldcathie District parkrun,55.96531,-3.46589
 avenhampark-juniors,UK,Avenham Park junior parkrun,53.75367,-2.69858
 aviemore,UK,Aviemore parkrun,57.21369,-3.80319
 aylesbury,UK,Aylesbury parkrun,51.83197,-0.82137
@@ -1302,6 +1307,7 @@ ayr,UK,Ayr parkrun,55.43617,-4.6243
 babbsmill,UK,Babbs Mill parkrun,52.48689,-1.76151
 bailey-juniors,UK,Bailey junior parkrun,51.82448,-3.01681
 bakewell,UK,Bakewell parkrun,53.23665,-1.70299
+ballachulishquarry-juniors,UK,Ballachulish Quarry junior parkrun,56.67763,-5.12655
 banbury,UK,Banbury parkrun,52.06901,-1.33402
 bangor,UK,"Bangor parkrun, Northern Ireland",54.65912,-5.66048
 bangor-juniors,UK,Bangor junior parkrun,54.65152,-5.71032
@@ -1309,6 +1315,7 @@ banktonmainspark-juniors,UK,Bankton Mains Park junior parkrun,55.87378,-3.51683
 banstead,UK,Banstead Woods parkrun,51.30765,-0.18422
 barclay,UK,Barclay parkrun,51.7572,-0.01843
 barking,UK,Barking parkrun,51.54461,0.08175
+barking-juniors,UK,Barking junior parkrun,51.54624,0.08798
 barkinganddagenham-juniors,UK,Barking and Dagenham junior parkrun,51.54577,0.12536
 barnsley,UK,Barnsley parkrun,53.54185,-1.48832
 barnsley-juniors,UK,Barnsley junior parkrun,53.5418,-1.48899
@@ -1328,6 +1335,7 @@ bathskyline,UK,Bath Skyline parkrun,51.36535,-2.32693
 batterypark-juniors,UK,Battery Park junior parkrun,55.95986,-4.7973
 baxterpark-juniors,UK,Baxter Park junior parkrun,56.47076,-2.95217
 beacon,UK,Beacon parkrun,52.68548,-1.83708
+beaconhillcountrypark,UK,Beacon Hill Country Park parkrun,52.72472,-1.24986
 bearbrook,UK,Bear Brook parkrun,51.82267,-0.80149
 beaumontpark-juniors,UK,Beaumont Park junior parkrun,53.62229,-1.81227
 beckenhamplace,UK,Beckenham Place parkrun,51.4223,-0.01074
@@ -1363,6 +1371,7 @@ blackcombe,UK,Black Combe parkrun,54.20206,-3.31259
 blackhill,UK,Blackhill parkrun,54.8583,-1.84235
 blackpark,UK,Black Park parkrun,51.54021,-0.54781
 blackpool,UK,Blackpool parkrun,53.81338,-3.02186
+blaisecastle,UK,Blaise Castle parkrun,51.50213,-2.63977
 blandford,UK,Blandford parkrun,50.86313,-2.16631
 blickling,UK,Blickling parkrun,52.81613,1.21386
 blickling-juniors,UK,Blickling junior parkrun,52.81257,1.22645
@@ -1454,8 +1463,10 @@ carlislepark,UK,"Carlisle Park parkrun, Morpeth",55.16505,-1.69185
 carmarthen-juniors,UK,Carmarthen junior parkrun,51.85499,-4.31472
 carrickfergus,UK,Carrickfergus parkrun,54.71767,-5.80415
 cassiobury,UK,Cassiobury parkrun,51.65769,-0.40626
+cassiobury-juniors,UK,Cassiobury junior parkrun,51.65911,-0.41604
 castlehoward,UK,Castle Howard parkrun,54.12671,-0.89632
 castlepark,UK,Castle Park parkrun,51.87285,0.16286
+castleplayingfields-juniors,UK,Castle Playing Fields junior parkrun,52.08492,0.41684
 castlewellan,UK,Castlewellan parkrun,54.26446,-5.97254
 catford,UK,Catford parkrun,51.44635,-0.01195
 catterick,UK,Catterick parkrun,54.38496,-1.64804
@@ -1498,6 +1509,7 @@ claphamcommon,UK,Clapham Common parkrun,51.45728,-0.14551
 clarecastle,UK,Clare Castle parkrun,52.07592,0.58392
 cleethorpes,UK,Cleethorpes parkrun,53.54109,-0.02646
 clevedonsalthousefields,UK,Clevedon Salthouse Fields parkrun,51.43581,-2.8671
+clevedonseafront-juniors,UK,Clevedon Seafront junior parkrun,51.43586,-2.86716
 cliffecastle,UK,Cliffe Castle parkrun,53.87558,-1.91467
 cliffpark-juniors,UK,Cliff Park junior parkrun,51.93167,1.27699
 clifton,UK,Clifton parkrun,52.90598,-1.16353
@@ -1563,6 +1575,7 @@ daventry-juniors,UK,Daventry junior parkrun,52.25415,-1.18916
 daventrycountrypark-juniors,UK,Daventry Country Park junior parkrun,52.27074,-1.14694
 deancastlecountrypark,UK,Dean Castle Country Park parkrun,55.62284,-4.4804
 delamere,UK,Delamere parkrun,53.23714,-2.67495
+dentondene,UK,Denton Dene parkrun,54.97746,-1.69487
 derbypark-juniors,UK,Derby Park junior parkrun,53.45144,-2.97968
 derrycity,UK,Derry City parkrun,54.99785,-7.31817
 derrycity-juniors,UK,Derry City junior parkrun,55.00063,-7.30465
@@ -1573,6 +1586,7 @@ dewsbury,UK,Dewsbury parkrun,53.68841,-1.64644
 dewsbury-juniors,UK,Dewsbury junior parkrun,53.68815,-1.64615
 didcot,UK,Didcot parkrun,51.6128,-1.23899
 dintonpastures,UK,Dinton Pastures parkrun,51.44098,-0.88097
+dintonpastures-juniors,UK,Dinton Pastures junior parkrun,51.44546,-0.87128
 dishleyloughborough,UK,"Dishley parkrun, Loughborough",52.79439,-1.23025
 dixton-juniors,UK,"Dixton junior parkrun, Monmouth",51.81681,-2.70559
 doddingtonhall,UK,Doddington Hall parkrun,53.22984,-0.64435
@@ -1627,7 +1641,9 @@ elycountry-juniors,UK,Ely Country junior parkrun,52.39832,0.27761
 endcliffe,UK,Endcliffe parkrun,53.36886,-1.51766
 enfieldtown-juniors,UK,Enfield Town junior parkrun,51.65065,-0.08583
 enniskillen,UK,Enniskillen parkrun,54.34251,-7.64369
+epworthequestrian,UK,Epworth Equestrian parkrun,53.53189,-0.87615
 erddig,UK,Erddig parkrun,53.02857,-3.00762
+erskinewaterfront,UK,Erskine Waterfront parkrun,55.90923,-4.44974
 evesham,UK,Evesham parkrun,52.08782,-1.94751
 evesham-juniors,UK,Evesham junior parkrun,52.08908,-1.95869
 exeterriverside,UK,Exeter Riverside parkrun,50.70132,-3.5085
@@ -1672,6 +1688,7 @@ gadebridge,UK,Gadebridge parkrun,51.76313,-0.48022
 gadebridgepark-juniors,UK,Gadebridge Park junior parkrun,51.76058,-0.47393
 gainsborough,UK,Gainsborough parkrun,53.40703,-0.7683
 ganavansands,UK,Ganavan Sands parkrun,56.43925,-5.45894
+gangerfarm,UK,Ganger Farm parkrun,51.00916,-1.46676
 gardenhurstestate-juniors,UK,Gardenhurst Estate junior parkrun,53.13841,-2.66791
 garvaghforest,UK,Garvagh Forest parkrun,54.97737,-6.6954
 gateshead,UK,Gateshead parkrun,54.94559,-1.60464
@@ -1687,6 +1704,7 @@ gloucesternorth,UK,Gloucester North parkrun,51.87827,-2.22978
 gnoll,UK,Gnoll parkrun,51.66288,-3.78543
 gnoll-juniors,UK,Gnoll junior parkrun,51.66288,-3.78543
 goole,UK,Goole parkrun,53.70911,-0.88585
+gordonpark-juniors,UK,Gordon Park junior parkrun,57.36483,-2.08078
 gorleston,UK,Gorleston Cliffs parkrun,52.56781,1.73069
 gorleston-juniors,UK,Gorleston junior parkrun,52.56325,1.73161
 goudhurst-juniors,UK,Goudhurst junior parkrun,51.1141,0.46428
@@ -1751,6 +1769,7 @@ haywardsheath-juniors,UK,Haywards Heath junior parkrun,50.99757,-0.10462
 hazelwood,UK,Hazelwood parkrun,51.4037,-0.43031
 hazlehead,UK,"Hazlehead parkrun, Aberdeen",57.14135,-2.17563
 heartlands,UK,Heartlands parkrun,50.22618,-5.26871
+heartwoodforest,UK,Heartwood Forest parkrun,51.79013,-0.31843
 heaton,UK,Heaton parkrun,53.5281,-2.25781
 heavitree-juniors,UK,Heavitree junior parkrun,50.7235,-3.49977
 helix-juniors,UK,Helix junior parkrun,56.00869,-3.75797
@@ -1780,6 +1799,7 @@ hoblingwell-juniors,UK,Hoblingwell junior parkrun,51.4033,0.10286
 hockleywoods,UK,Hockley Woods parkrun,51.59528,0.64592
 hogmoorinclosure,UK,Hogmoor Inclosure parkrun,51.11217,-0.87861
 hogmoorinclosure-juniors,UK,Hogmoor Inclosure junior parkrun,51.10895,-0.87406
+holbrooks,UK,Holbrooks parkrun,52.43912,-1.51826
 holkham,UK,Holkham parkrun,52.95012,0.80097
 hollesleybay,UK,Hollesley Bay parkrun,52.05153,1.45133
 holycrosscollege,UK,Holy Cross College parkrun,54.81491,-7.47506
@@ -1801,6 +1821,7 @@ hull,UK,Hull parkrun,53.76464,-0.30071
 humberbridge,UK,Humber Bridge parkrun,53.71907,-0.45344
 hunstantonpromenade,UK,Hunstanton Promenade parkrun,52.93728,0.48463
 huntingdon,UK,Huntingdon parkrun,52.33013,-0.21493
+huttonrecreationground-juniors,UK,Hutton Recreation Ground junior parkrun,51.63481,0.35412
 hyde,UK,Hyde parkrun,53.4568,-2.07548
 hyde-juniors,UK,Hyde junior parkrun,53.45739,-2.07728
 hyndburn,UK,Hyndburn parkrun,53.779,-2.37922
@@ -1834,7 +1855,9 @@ kinggeorge-juniors,UK,King George junior parkrun,51.64182,-0.35182
 kinggeorgeplayingfields-juniors,UK,"King George Playing Fields junior parkrun, Hull",53.7716,-0.37475
 kinggeorgev-juniors,UK,King George V junior parkrun,51.37596,-2.13561
 kinggeorgevplayingfield,UK,King George V Playing Field parkrun,51.9042,-2.10437
+kinggeorgevplayingfield-juniors,UK,"King GeorgeV Playing Field junior parkrun, MillEnd",51.63814,-0.49843
 kingsburywater,UK,Kingsbury Water parkrun,52.56174,-1.69717
+kingsgrovewoodland-juniors,UK,Kingsgrove Woodland junior parkrun,51.59914,-1.40574
 kingslynn,UK,King's Lynn parkrun,52.7509,0.40097
 kingslynn-juniors,UK,King’s Lynn junior parkrun,52.74962,0.40583
 kingston,UK,Kingston parkrun,51.42537,-0.30794
@@ -1861,6 +1884,7 @@ leabridges-juniors,UK,Lea Bridges junior parkrun,52.60228,1.29019
 leamington,UK,Leamington parkrun,52.28664,-1.51058
 leatherhead-juniors,UK,Leatherhead junior parkrun,51.29183,-0.33029
 leavesden-juniors,UK,Leavesden junior parkrun,51.70646,-0.40084
+leavesdencountry,UK,Leavesden Country parkrun,51.70675,-0.40322
 leazes,UK,Leazes parkrun,54.97805,-1.62379
 leeonthesolent,UK,Lee-on-the-Solent parkrun,50.80109,-1.20382
 leicestervictoria,UK,Leicester Victoria parkrun,52.62058,-1.12081
@@ -1880,6 +1904,7 @@ lingwood,UK,Lingwood parkrun,52.61917,1.49373
 linwood,UK,Linwood parkrun,55.85903,-4.49381
 littlehamptonprom,UK,Littlehampton Prom parkrun,50.80237,-0.54092
 littleport,UK,Littleport parkrun,52.46435,0.29525
+littlestoke,UK,Little Stoke parkrun,51.52989,-2.56361
 littlestoke-juniors,UK,Little Stoke junior parkrun,51.52946,-2.55975
 livingston,UK,Livingston parkrun,55.88654,-3.51879
 llanellicoast,UK,Llanelli Coast parkrun,51.68664,-4.20856
@@ -1900,6 +1925,7 @@ longeaton-juniors,UK,Long Eaton junior parkrun,52.89518,-1.28834
 longrunmeadow,UK,Longrun Meadow parkrun,51.01992,-3.12289
 longrunmeadow-juniors,UK,Longrun Meadow junior parkrun,51.02137,-3.12269
 longton-juniors,UK,Longton junior parkrun,52.97374,-2.1376
+lordshiprecground-juniors,UK,Lordship Rec Ground junior parkrun,51.59408,-0.08985
 lordshiprecreationground,UK,Lordship Recreation Ground parkrun,51.5974,-0.08948
 loughmoss-juniors,UK,Lough Moss junior parkrun,54.51611,-5.89722
 lowerdrummans,UK,Lower Drummans parkrun,55.17661,-6.95064
@@ -1935,6 +1961,8 @@ margate-juniors,UK,Margate junior parkrun,51.38337,1.372
 marineparade,UK,Marine Parade parkrun,51.34531,-2.9833
 markeaton,UK,Markeaton parkrun,52.93458,-1.50588
 markeaton-juniors,UK,Markeaton junior parkrun,52.93189,-1.50153
+marketbosworthcountrypark,UK,Market Bosworth Country Park parkrun,52.62028,-1.39107
+marketbosworthcountrypark,UK,Market Bosworth Country Park parkrun,52.62028,-1.39107
 marketharborough,UK,Market Harborough parkrun,52.47448,-0.92499
 marketharborough-juniors,UK,Market Harborough junior parkrun,52.47528,-0.9261
 marketrasenracecourse,UK,Market Rasen Racecourse parkrun,53.3806,-0.30896
@@ -1943,6 +1971,7 @@ marlboroughcommon,UK,Marlborough Common parkrun,51.42763,-1.73351
 marple,UK,Marple parkrun,53.40867,-2.05953
 marple-juniors,UK,Marple junior parkrun,53.40798,-2.05781
 marshalldrive,UK,"Marshall Drive parkrun, Brotton",54.57405,-0.94793
+maryportprom,UK,Maryport Prom parkrun,54.72589,-3.49301
 meadowmill,UK,Meadowmill parkrun,55.95324,-2.97278
 medina,UK,Medina I.O.W. parkrun,50.70959,-1.28756
 medina-juniors,UK,Medina I.O.W junior parkrun,50.70834,-1.288
@@ -1954,6 +1983,7 @@ merseaisland,UK,Mersea Island parkrun,51.79259,0.99829
 merthyr,UK,Merthyr parkrun,51.74163,-3.3803
 middletonwoods,UK,Middleton Woods parkrun,53.75452,-1.54476
 mildenhallhub,UK,Mildenhall Hub parkrun,52.34165,0.49591
+mildenhallhub-juniors,UK,Mildenhall Hub junior parkrun,52.34356,0.50078
 mileend,UK,Mile End parkrun,51.5271,-0.03964
 mileend-juniors,UK,Mile End junior parkrun,51.51884,-0.03491
 milfordwaterfront,UK,Milford Waterfront parkrun,51.70984,-5.02954
@@ -1961,9 +1991,11 @@ millbankboatingpond-juniors,UK,Millbank Boating Pond junior parkrun,58.5911,-3.5
 millenniumcountry,UK,"Millennium Country parkrun, Forest of Marston Vale",52.07452,-0.53551
 millenniumgreen-juniors,UK,Millennium Green junior parkrun,51.6809,-1.4065
 millfield,UK,Millfield parkrun,54.1285,-1.18948
+millfield-juniors,UK,Millfield junior parkrun,54.1261,-1.18728
 millhouses,UK,Millhouses parkrun,53.34264,-1.50053
 millom,UK,Millom parkrun,54.21402,-3.26566
 milnrowmemorialpark-juniors,UK,Milnrow Memorial Park junior parkrun,53.60363,-2.10122
+miltoncountry,UK,Milton Country parkrun,52.23997,0.16607
 miltonkeynes,UK,Milton Keynes parkrun,52.05413,-0.72225
 miltonkeynes-juniors,UK,Milton Keynes junior parkrun,52.00333,-0.78284
 minehead,UK,Minehead parkrun,51.20899,-3.473
@@ -1980,6 +2012,7 @@ mountbattenschool,UK,Mountbatten School parkrun,50.98345,-1.47367
 mountedgcumbe,UK,Mount Edgcumbe parkrun,50.3493,-4.17149
 mountpleasant,UK,Mount Pleasant parkrun,-51.83234,-58.45217
 mountstuart,UK,Mount Stuart parkrun,55.80106,-5.01826
+mowbraypark-juniors,UK,Mowbray Park junior parkrun,54.90358,-1.38098
 mulbarton,UK,Mulbarton parkrun,52.56265,1.23604
 musacookstown,UK,MUSA Cookstown parkrun,54.61518,-6.73573
 musgrave-juniors,UK,Musgrave junior parkrun,54.56834,-5.97206
@@ -2010,10 +2043,12 @@ northallerton-juniors,UK,Northallerton junior parkrun,54.34835,-1.43664
 northampton,UK,Northampton parkrun,52.24709,-0.88689
 northamptonracecourse-juniors,UK,Northampton Racecourse junior parkrun,52.25171,-0.88289
 northlands-juniors,UK,Northlands junior parkrun,51.57725,0.50023
+northmarine-juniors,UK,North Marine junior parkrun,55.00264,-1.4242
 northwalsham,UK,North Walsham parkrun,52.8194,1.39328
 northwich,UK,Northwich parkrun,53.2669,-2.51404
 northwich-juniors,UK,Northwich junior parkrun,53.25839,-2.50854
 northyorkshirewaterpark,UK,North Yorkshire Water Park parkrun,54.2213,-0.48768
+nortoncommon-juniors,UK,Norton Common junior parkrun,51.98755,-0.22778
 norwich,UK,Norwich parkrun,52.61927,1.25358
 nostell,UK,Nostell parkrun,53.65405,-1.38604
 novaprestatyn,UK,Nova Prestatyn parkrun,53.33534,-3.43842
@@ -2040,9 +2075,11 @@ palaceriggcountry,UK,Palacerigg Country parkrun,55.94509,-3.95595
 panshanger,UK,Panshanger parkrun,51.8003,-0.1251
 parc,UK,Parc parkrun,51.53002,-3.56322
 parke,UK,Parke parkrun,50.59672,-3.69124
+parkhillrecreationground-juniors,UK,Park Hill Recreation Ground junior parkrun,51.82609,-1.29042
 parkview-juniors,UK,Park View junior parkrun,53.74142,-2.96144
 parkwood-juniors,UK,Park Wood junior parkrun,51.239,0.55338
 partrack-juniors,UK,Par Track junior parkrun,50.35461,-4.70369
+paviliongardens,UK,Pavilion Gardens parkrun,53.25594,-1.91921
 peacehaven,UK,Peacehaven parkrun,50.79474,0.01226
 peacehaven-juniors,UK,Peacehaven junior parkrun,50.79377,0.01359
 peckhamrye,UK,Peckham Rye parkrun,51.45549,-0.06069
@@ -2065,6 +2102,7 @@ perth-juniors,UK,Perth junior parkrun,56.39135,-3.43531
 peterpan,UK,Peter Pan parkrun,53.73788,-0.40855
 peterpan-juniors,UK,Peter Pan junior parkrun,53.73789,-0.40854
 phearpark-juniors,UK,Phear Park junior parkrun,50.62515,-3.40633
+philipspark,UK,Philips Park parkrun,53.48954,-2.19391
 phoenix,UK,Phoenix parkrun,53.33681,-2.68156
 phoenix-juniors,UK,Phoenix junior parkrun,53.33737,-2.68002
 pinehill-juniors,UK,Pinehill junior parkrun,51.94822,-0.26228
@@ -2188,6 +2226,7 @@ severnbridge,UK,Severn Bridge parkrun,51.61927,-2.66548
 severnvalleycountry,UK,Severn Valley Country parkrun,52.45727,-2.37709
 sewerby,UK,Sewerby parkrun,54.10328,-0.16076
 seymourpark-juniors,UK,Seymour Park junior parkrun,53.45978,-2.27255
+sharphamestate,UK,Sharpham Estate parkrun,50.41723,-3.67477
 sharphamroadplayingfields,UK,Sharpham Road Playing Fields parkrun,51.28131,-2.79413
 sheffieldcastle,UK,Sheffield Castle parkrun,53.3695,-1.4288
 sheffieldhallam,UK,Sheffield Hallam parkrun,53.36886,-1.51766
@@ -2249,6 +2288,7 @@ sthelens,UK,St Helens parkrun,53.46178,-2.74137
 stirling-juniors,UK,Stirling junior parkrun,56.11439,-3.94848
 stmarys,UK,St Mary’s parkrun,50.73195,-2.76429
 stnicholas-juniors,UK,St Nicholas junior parkrun,52.28103,-1.57998
+stockleycountry,UK,Stockley Country parkrun,51.51233,-0.4514
 stokesbay-juniors,UK,Stokes Bay junior parkrun,50.78184,-1.15429
 stonehaven,UK,Stonehaven parkrun,56.96867,-2.21482
 stonehouse,UK,Stonehouse parkrun,51.75614,-2.28768
@@ -2284,6 +2324,7 @@ tamarlakes,UK,Tamar Lakes parkrun,50.87984,-4.43346
 tamartrails,UK,Tamar Trails parkrun,50.5352,-4.20175
 tawdvalley,UK,Tawd Valley parkrun,53.56308,-2.78905
 teesbarrage,UK,Tees Barrage parkrun,54.56117,-1.30517
+teifimarshesnaturereserve,UK,Teifi Marshes Nature Reserve parkrun,52.07368,-4.64726
 teignmouthpromenade,UK,Teignmouth Promenade parkrun,50.54591,-3.49349
 telford,UK,Telford parkrun,52.66488,-2.44464
 telford-juniors,UK,Telford junior parkrun,52.6654,-2.44366
@@ -2292,6 +2333,7 @@ templenewsam-juniors,UK,Temple Newsam junior parkrun,53.78454,-1.45789
 ternhill,UK,Tern Hill parkrun,52.86948,-2.52347
 tetburygoodsshed,UK,Tetbury Goods Shed parkrun,51.6449,-2.14017
 tewkesbury,UK,Tewkesbury parkrun,51.98797,-2.16058
+thamespathwoolwich,UK,"Thames Path parkrun, Woolwich",51.50221,0.091
 thecindertrack,UK,"The Cinder Track parkrun, Whitby",54.47215,-0.61838
 thegrange,UK,The Grange parkrun,54.49552,-1.33887
 thegreatfield,UK,The Great Field parkrun,50.71639,-2.45829
@@ -2336,6 +2378,7 @@ tring,UK,Tring parkrun,51.77801,-0.66259
 troon,UK,Troon parkrun,55.541,-4.66087
 tynegreen,UK,Tyne Green parkrun,54.98312,-2.12746
 uckfield,UK,Uckfield parkrun,50.98854,0.12121
+universityofnorthampton,UK,University of Northampton parkrun,52.23398,-0.89049
 universityofstirling,UK,University of Stirling parkrun,56.14473,-3.91434
 universityparks,UK,University Parks parkrun,51.76037,-1.25147
 uppermill-juniors,UK,Uppermill junior parkrun,53.53983,-2.00409
@@ -2413,11 +2456,13 @@ winchester-juniors,UK,Winchester junior parkrun,51.06913,-1.30837
 windmillhill-juniors,UK,Windmill Hill junior parkrun,51.44191,-2.58467
 windynook,UK,Windy Nook parkrun,54.93991,-1.56753
 wirralcountrypark-juniors,UK,Wirral Country Park junior parkrun,53.34353,-3.14603
+wisbech,UK,Wisbech parkrun,52.66809,0.16619
 wisbech-juniors,UK,Wisbech junior parkrun,52.66609,0.16519
 witney,UK,Witney parkrun,51.79055,-1.51514
 witton,UK,Witton parkrun,53.74183,-2.51764
 woking,UK,Woking parkrun,51.31107,-0.55175
 woking-juniors,UK,Woking junior parkrun,51.31198,-0.55399
+wolfordwood,UK,Wolford Wood parkrun,51.99639,-1.65201
 wollatonhall,UK,Wollaton Hall parkrun,52.94222,-1.20959
 wolverhampton,UK,Wolverhampton parkrun,52.58773,-2.13672
 woodbank,UK,Woodbank parkrun,53.41234,-2.14164
@@ -2441,9 +2486,12 @@ wottoncommunityparc-juniors,UK,Wotton Community PARC junior parkrun,51.6341,-2.3
 wycomberye,UK,Wycombe Rye parkrun,51.62478,-0.7403
 wycomberye-juniors,UK,Wycombe Rye junior parkrun,51.62592,-0.74119
 wyndham-juniors,UK,Wyndham junior parkrun,52.91575,-0.63739
+wynyardwoodland,UK,Wynyard Woodland parkrun,54.62832,-1.382
 wyreforest,UK,Wyre Forest parkrun,52.36499,-2.36982
 wyreforest-juniors,UK,Wyre Forest junior parkrun,52.36695,-2.36532
+wythall,UK,Wythall parkrun,52.38698,-1.88638
 wythenshawe,UK,Wythenshawe parkrun,53.40475,-2.27951
+yarboroughleisurecentre,UK,Yarborough Leisure Centre parkrun,53.24944,-0.54373
 yattonrecreation-juniors,UK,Yatton Recreation junior parkrun,51.38757,-2.81467
 yeovilmontacute,UK,Yeovil Montacute parkrun,50.94265,-2.61799
 yeovilrec-juniors,UK,Yeovil Rec junior parkrun,50.95296,-2.63808
