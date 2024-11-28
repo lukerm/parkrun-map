@@ -2,4 +2,4 @@ dash~=2.18.2
 lxml~=4.9
 pandas>=1.0.3,<2.0.0
 requests~=2.28
-waitress>=1.4.4,<2.0.0
+waitress>=3.0.2,<4.0.0
