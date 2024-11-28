@@ -33,8 +33,8 @@ def parse_fields(row: html.Element) -> Dict[str, Union[str, int]]:
     for i, field in enumerate(field_elements):
         if i == 0:
             a = field.xpath('./a')[0]
-            url = a.get('href')  # e.g. 'https://www.parkrun.org.uk/highburyfields/results'
-            data_dict['event_name'] = url.split('/')[-2]
+            url = a.get('href')  # e.g. 'https://www.parkrun.org.uk/highburyfields/results' or same with trailing '/'
+            data_dict['event_name'] = url.split('/')[-3] if url.endswith('/') else url.split('/')[-2] # e.g. 'highburyfields'
             top_level_domain = urllib.parse.urlparse(url).netloc
             domain_extension = top_level_domain.split('parkrun')[1]
             data_dict['country'] = COUNTRY_LOOKUP[domain_extension]  # e.g. 'UK'
