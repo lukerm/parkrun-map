@@ -9,14 +9,15 @@ import pandas as pd
 import requests
 from lxml import html
 
-from . lookup import COUNTRY_LOOKUP, DOMAIN_EXT_LOOKUP
-from . parse import parse_event_coordinates
+from parkrun_map.utils.lookup import COUNTRY_LOOKUP, DOMAIN_EXT_LOOKUP
+from parkrun_map.utils.parse import parse_event_coordinates
 
 
 USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)"
 PRETTY_TIME_REGEX = re.compile('^00:')
 
-COURSE_FILEPATH = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'course_data.csv')
+COURSE_FILEPATH = os.path.join(os.path.expanduser('~'), 'parkrun-map', 'data', 'course_data.csv')
+# COURSE_FILEPATH = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'course_data.csv')
 EVENT_SUMMARY_COLUMNS = ['event_name', 'country', 'run_count', 'personal_best']
 
 
@@ -123,6 +124,7 @@ def get_athlete_and_course_data(athlete_id: Union[str, int]) -> pd.DataFrame:
     missing_courses = set(athlete_summary_data['event_name']) - set(course_data['event_name'])
     if len(missing_courses) > 0:
         df_missing = athlete_summary_data[athlete_summary_data['event_name'].isin(missing_courses)]
+        print(df_missing)
         course_data = update_course_data(new_course_event_names=df_missing['event_name'], new_course_countries=df_missing['country'])
 
     # Right join to enable showing missing parkruns
@@ -132,3 +134,22 @@ def get_athlete_and_course_data(athlete_id: Union[str, int]) -> pd.DataFrame:
     df_merged['run_count'] = df_merged['run_count'].astype(int)
 
     return df_merged
+
+
+
+# Traceback (most recent call last):
+#   File "/home/luke/tmp-parkrun-map/parkrun_map/map_app.py", line 178, in update_graph
+#     fig, acquired_letters = get_graph(athlete_id=athlete_id, checkbox_options=checkbox_options)
+#   File "/home/luke/tmp-parkrun-map/parkrun_map/map_app.py", line 30, in get_graph
+#     athlete_data = get_athlete_and_course_data(athlete_id=athlete_id)
+#   File "/home/luke/tmp-parkrun-map/parkrun_map/utils/data.py", line 126, in get_athlete_and_course_data
+#     course_data = update_course_data(new_course_event_names=df_missing['event_name'], new_course_countries=df_missing['country'])
+#   File "/home/luke/tmp-parkrun-map/parkrun_map/utils/data.py", line 105, in update_course_data
+#     df_new_course = get_new_course_data(event_name=event_name, country=country)
+#   File "/home/luke/tmp-parkrun-map/parkrun_map/utils/data.py", line 92, in get_new_course_data
+#     latitude, longitude = parse_event_coordinates(html_str=response_course_page.text)
+#   File "/home/luke/tmp-parkrun-map/parkrun_map/utils/parse.py", line 21, in parse_event_coordinates
+#     lat_str, lon_str = point_markers[0]
+# IndexError: list index out of range
+
+#
